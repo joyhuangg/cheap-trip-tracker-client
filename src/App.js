@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import {YELP_API_KEY} from "./.key"
+
+
 class App extends Component {
   render() {
     return (
