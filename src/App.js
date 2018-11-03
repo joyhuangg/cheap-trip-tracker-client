@@ -14,6 +14,8 @@ import RestaurantsContainer from './restaurants/RestaurantsContainer'
 import Checkout from './checkout/Checkout'
 import { connect } from 'react-redux'
 import {YELP_API_KEY, AMADEUS_API_KEY, MAPBOX_API_KEY} from "./.keys"
+import { getCurrentUser, removeUser } from './store'
+import { loadTrip } from './store/actions/tripActions'
 
 
 class App extends Component {
@@ -22,55 +24,45 @@ class App extends Component {
 // email: "",
 // password: "",
 
-
   componentDidMount(){
     const token = localStorage.getItem("token")
-    // if (!!token){
-    //   this.getCurrentUser(token)
-    //   // Promise.all([this.getCurrentUser(token), this.fetchStores(), this.getDeals(),this.getStampCards()])
-    // }
+    if (!!token){
+      this.props.getCurrentUser(token)
+      .then((resp) => {
+        if (this.props.currentUser.current_trip_id){
+          console.log("user", this.props.currentUser)
+          this.props.loadTrip(this.props.currentUser.current_trip)
+          // debugger
+        }
+
+      })
+      // need to find currentTrip if it exists, and set it in the front end for a logged in user
 
 
 
-    // fetch('http://localhost:3003/api/v1/users', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Accept: 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     user: {
-    //       email: 'guy',
-    //       password: 'hi',
-    //       name: 'King of Flavortown, USA',
-    //     }
-    //   })
-    // })
-    //   .then(r => r.json())
-    //   .then(console.log)
+      // the current user returns an object with message: "please log in"
+      // if (this.props.currentUser.message){
+      //   localStorage.removeItem("token")
+      //   this.props.removeUser()
+      //   console.log("logging out")
+      // }
+    }
+    else{
+      console.log("no one logged in")
+    }
   }
 
-  // handleSignUpSubmit = (e, obj) => {
-  //   this.setState({auth:{ currentUser: {obj}}})
-  //   debugger
-  //   fetch("https://localhost:3000/api/v1/users",{
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //       Authorization: localStorage.getItem("token")
-  //
-  //     },
-  //     body: JSON.stringify(obj)
-  //   })
-  //   .then(resp => this.props.history.push("/profile"))
-  // }
+  handleLogout = () => {
+    localStorage.removeItem("token")
+    this.props.removeUser()
+    console.log("logging out")
+  }
 
   render() {
     return (
       <div className="App">
 
-          <Navbar currentUser={this.props.currentUser}/>
+          <Navbar currentUser={this.props.currentUser} handleLogout={this.handleLogout}/>
           <Switch>
             <Route path="/trips" render={(routerProps) => <TripsContainer {...routerProps} trips={this.state.trips} currentUser={this.props.currentUser}/>} />
             <Route path="/signup" render={(routerProps)=> <Signup {...routerProps} handleSignUpSubmit={this.handleSignUpSubmit}/>} />
@@ -96,4 +88,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(App))
+// const mapDispatchToProps = (dispatch) => {
+//   return {getCurrentUser: (token) => dispatch(getCurrentUser(token))}
+// }
+
+export default withRouter(connect(mapStateToProps, {getCurrentUser, removeUser, loadTrip})(App))

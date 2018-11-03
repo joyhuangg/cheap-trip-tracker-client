@@ -11,13 +11,13 @@ class Signup extends Component {
     name: "",
     email: "",
     password: "",
+    current_trip_id: null
   }
 
   handleSignUpSubmit = (e) => {
     e.preventDefault()
     this.props.createUser(this.state)
     this.props.history.push("/profile")
-    // this.props.handleSignUpSubmit(e, this.state)
   }
 
   handleChange = (e) => {

@@ -49,12 +49,17 @@ class Login extends React.Component{
     .then(() => {
       this.props.history.push("/profile")
     })
-    .catch(
+    .catch(() => {
+      alert("Invalid username or password")
+      this.props.history.push("/")
+    }
+      // TO DO
       // setlocal state error = true
-      console.error
+      // console.error
+
     )
 
-    debugger
+    // debugger
     // .then(resp => {
     //   if (resp.error){
     //     this.setState({error: true})

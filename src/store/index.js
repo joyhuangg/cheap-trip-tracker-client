@@ -8,4 +8,5 @@ const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(ap
 export default store
 export * from './actions/tripActions'
 export * from './actions/userActions'
+export * from './actions/hotelActions'
 // can now import {updateTrip} from './store'
