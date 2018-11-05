@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux'
+import {selectHotel} from '../store/actions/hotelActions'
 class Hotel extends Component {
 
+// do i need state or componentDidMount?
   state = {
     longitude: '',
     latitude: '',
     address: '',
     price: '',
     property_name: '',
+    property_code: '',
     trip_id: ''
   }
 
@@ -19,21 +22,35 @@ class Hotel extends Component {
         address: this.props.hotel.address.line1 + " " + this.props.hotel.address.city + ", " + this.props.hotel.address.country + " " + this.props.hotel.address.postal_code,
         price: parseInt(this.props.hotel.total_price.amount),
         property_name: this.props.hotel.property_name,
+        property_code: this.props.hotel.property_code,
         trip_id: parseInt(this.props.trip.id)
       })
     }
   }
 
+
   handleClick = (e) => {
-    console.log(this.state)
+    // console.log(this.state)
+    // debugger
+    this.props.selectHotel(this.props.hotel)
   }
+
   render(){
-    return(
-      <div onClick={this.handleClick}>
-        {this.state.property_name} - ${this.state.price}
+    let toReturn
+    this.props.hotel ?
+    toReturn = (
+      <div onClick={(e) => {this.handleClick(e)}}>
+        {this.props.hotel.property_name} - ${this.props.hotel.total_price.amount}
       </div>
     )
+    :
+    toReturn =(<div>loading</div>)
+    return toReturn
   }
 }
 
-export default Hotel
+const mapStateToProps = (state) => {
+  return {trip: state.trips.currentTrip}
+}
+
+export default connect(mapStateToProps, {selectHotel})(Hotel)

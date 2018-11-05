@@ -1,4 +1,4 @@
-import {getHotels} from './hotelAdapter'
+import {getHotels, postHotel} from './hotelAdapter'
 
 export const loadHotels = (trip) => {
   return (dispatch) => {
@@ -9,4 +9,15 @@ export const loadHotels = (trip) => {
     .then(allHotels => {
       dispatch({type: "LOAD_HOTELS", payload: allHotels.results})})
   }
+}
+
+export const postNewHotel = (hotel) => {
+  return (dispatch) => {
+    return postHotel(hotel)
+    .then(hotel => dispatch({type: "ADD_HOTEL_TO_TRIP", payload:hotel}))
+  }
+}
+
+export const selectHotel = (hotel) => {
+  return {type: "SELECT_HOTEL", payload: hotel}
 }

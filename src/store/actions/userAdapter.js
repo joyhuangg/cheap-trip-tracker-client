@@ -2,7 +2,7 @@
 
 // USERS
 export const getUsers = () => {
-  return fetch(`http://localhost:3000/api/v1/trips/`)
+  return fetch(`http://localhost:3000/api/v1/users/`)
   .then(r => r.json())
 }
 
@@ -13,7 +13,8 @@ export const getUser = (user) => {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    body: JSON.stringify({auth:user})
+    // body: JSON.stringify({auth:user})
+    body: JSON.stringify(user)
   })
   .then(res => res.json())
   .then(res => {
@@ -26,7 +27,6 @@ export const getUser = (user) => {
 }
 
 export const getUserByToken = (token) => {
-  console.log("Token",token)
   return fetch('http://localhost:3000/api/v1/current_user', {
       headers: {
         "Content-Type": "application/json",
@@ -56,6 +56,8 @@ export const postUser = (user) => {
       Authorization: localStorage.getItem("token")
     },
     body: JSON.stringify({user:user})
+    // body: JSON.stringify(user)
+
   })
   .then(r => r.json())
 }

@@ -3,6 +3,9 @@ import Hotel from './Hotel'
 import { connect } from 'react-redux'
 import { loadHotels } from '../store/actions/hotelActions'
 
+
+// STRETCH GOAL: allow users to filter by rating, price, location
+// STRETCH GOAL: ADD PAGINATION
 class HotelList extends Component {
 
   state = {

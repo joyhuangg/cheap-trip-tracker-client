@@ -4,6 +4,7 @@ import SelectedHotel from './SelectedHotel'
 // import { connect } from 'react-redux'
 
 class HotelsContainer extends Component {
+
   render(){
     return(
       <div>

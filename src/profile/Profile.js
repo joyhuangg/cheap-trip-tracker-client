@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import TripForm from './TripForm'
-import { connect } from 'react-redux'
-
+import { connect} from 'react-redux'
+import {Button} from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
 class Profile extends Component {
+
+  handleClick = (e) => {
+    this.props.history.push("/hotels")
+  }
+
   render(){
 
     let loggedIn = !!this.props.currentUser
@@ -20,6 +26,11 @@ class Profile extends Component {
       // else{
       //   user = this.props.currentUser
       // }
+
+
+
+      // TOOOO MOTHERFUCKING FIX LATER WHY THE MOTHERFUCKING
+      // IS IT NESTING IT DIFFERENTLY FROM SIGN UP/LOGIN
       if (this.props.currentUser){
         user = this.props.currentUser
         if (this.props.currentUser.currentUser){
@@ -35,7 +46,7 @@ class Profile extends Component {
       (
         <div>
           {user.name}'s Profile Component
-          <TripForm currentUser={user} />
+          {user.current_trip_id? (<div><Button onClick={this.handleClick}>Continue To Trip in Progress</Button></div>) : (<TripForm currentUser={user} />)}
         </div>
       )
     }
@@ -50,4 +61,4 @@ const mapStateToProps = state => {
   return {currentUser: state.currentUser}
 }
 
-export default connect(mapStateToProps)(Profile)
+export default withRouter(connect(mapStateToProps)(Profile))

@@ -26,17 +26,16 @@ class App extends Component {
 
   componentDidMount(){
     const token = localStorage.getItem("token")
-    if (!!token){
+    if (!!token && token !== "undefined"){
       this.props.getCurrentUser(token)
       .then((resp) => {
+        // need to find currentTrip if it exists, and set it in the front end for a logged in user
         if (this.props.currentUser.current_trip_id){
-          console.log("user", this.props.currentUser)
           this.props.loadTrip(this.props.currentUser.current_trip)
           // debugger
         }
 
       })
-      // need to find currentTrip if it exists, and set it in the front end for a logged in user
 
 
 
@@ -55,6 +54,7 @@ class App extends Component {
   handleLogout = () => {
     localStorage.removeItem("token")
     this.props.removeUser()
+    // TO DO: NEED TO REMOVE HOTELS, RESTUARANTS, TRIPS ETC.
     console.log("logging out")
   }
 
