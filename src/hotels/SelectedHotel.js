@@ -32,10 +32,9 @@ class SelectedHotel extends Component {
       //save hotel_trip association in the backend
       let tripObj
       this.props.currentTrip.trip ? tripObj = this.props.currentTrip.trip : tripObj = this.props.currentTrip
-      debugger
-      postTripHotel(tripObj.id, action.payload.hotel.id)
+      postTripHotel(tripObj.id, action.payload.id)
     })
-    .then(console.log)
+    // TO DO!!!!!
     //alter longitdue/latitude of trip to be the long/lat of hotel in backend
 
 
@@ -65,7 +64,7 @@ class SelectedHotel extends Component {
         SelectedHotel Component
         <Hotel hotel={this.props.selectedHotel} trip={this.props.currentTrip}/>
         {/* hotel should be equal to the currentTrips first hotel or maybe last hotel added?  */}
-        {this.props.selectedHotel ? <Button onClick={this.handleClick}>Go To Restaurants</Button> : <Button disabled>Go To Restaurants</Button>}
+        {this.props.selectedHotel ? <Button onClick={this.handleClick}>Go To Restaurants</Button> : <Button disabled>Please Select a Hotel</Button>}
 
       </div>
     )

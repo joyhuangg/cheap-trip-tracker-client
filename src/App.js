@@ -25,6 +25,7 @@ class App extends Component {
 // password: "",
 
   componentDidMount(){
+    // TO DO: load all the trips related to user
     const token = localStorage.getItem("token")
     if (!!token && token !== "undefined"){
       this.props.getCurrentUser(token)

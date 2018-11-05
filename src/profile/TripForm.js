@@ -44,7 +44,7 @@ class TripForm extends Component {
         }
         this.props.postNewTrip(trip)
         .then((resp) => {
-          const trip_id = resp.payload.trip.id
+          const trip_id = resp.payload.id
           this.props.currentUser.current_trip_id = trip_id
           console.log(this.props.currentUser)
           this.props.patchCurrentUser(this.props.currentUser)
