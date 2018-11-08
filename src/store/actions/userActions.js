@@ -20,7 +20,7 @@ export const createUser = (user) => {
     .then(user => {
       if (!user.error){
         localStorage.setItem("token", user.jwt)
-        dispatch(setCurrentUser(user))
+        dispatch(setCurrentUser(user.user))
       }
     })
   }
@@ -61,6 +61,14 @@ export const patchCurrentUser = (user) => {
         dispatch(setCurrentUser(resp))
       }
     })
+  }
+}
+
+export const removeCurrentTrip = (user) => {
+  user.current_trip_id = null
+  return (dispatch) => {
+    return updateUser(user)
+    .then(resp => dispatch(setCurrentUser(resp)))
   }
 }
 

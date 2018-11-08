@@ -1,6 +1,12 @@
 // TRIPS
 export const getTrips = () => {
-  return fetch(`http://localhost:3000/api/v1/trips/`)
+  return fetch(`http://localhost:3000/api/v1/trips/`, {
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      Authorization: localStorage.getItem("token")
+    },
+  })
   .then(r => r.json())
 }
 

@@ -7,10 +7,13 @@ export const updateMyTrip = (trip) => {
   }
 }
 
-export const loadMyTrips = () => {
+export const loadMyTrips = (user) => {
   return (dispatch) => {
     return getTrips()
-    .then(allTrips => dispatch({type: "LOAD_TRIP", payload: allTrips}))
+    .then(allTrips => {
+      let filteredTrips = allTrips.filter((trip) => trip.user.id === user.id)
+      dispatch({type: "LOAD_TRIPS", payload: filteredTrips})
+    })
   }
 }
 
@@ -28,6 +31,14 @@ export const loadTrip = (trip) => {
   }
 }
 
+export const nameTrip = (trip) => {
+  return (dispatch) => {
+    return updateTrip(trip)
+    .then(updatedTrip => dispatch(finalizeTrip(updatedTrip)))
+  }
+}
+
+
 /*----ACTION CREATORS-----*/
 
 export const setCurrentTrip = (trip) => {
@@ -37,4 +48,10 @@ export const selectTrip = (trip) => {
   return {type: 'SELECT_TRIP', payload:trip }
 }
 
+export const removeTrips = () => {
+  return {type:'REMOVE_TRIPS'}
+}
+
 const editTrip = (trip) => ({type: 'EDIT_TRIP', payload: trip})
+
+const finalizeTrip = (trip) => ({type: 'FINALIZE_TRIP', payload: trip})

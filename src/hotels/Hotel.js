@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {selectHotel} from '../store/actions/hotelActions'
+import {List, Image, Icon } from 'semantic-ui-react'
 class Hotel extends Component {
 
 // do i need state or componentDidMount?
@@ -39,9 +40,15 @@ class Hotel extends Component {
     let toReturn
     this.props.hotel ?
     toReturn = (
-      <div onClick={(e) => {this.handleClick(e)}}>
-        {this.props.hotel.property_name} - ${this.props.hotel.total_price.amount}
-      </div>
+      <List.Item onClick={this.handleClick}>
+        <Icon small name='hotel' />
+        <List.Content>
+          <List.Header as='a'>{this.props.hotel.property_name}</List.Header>
+          <List.Description>
+            Price: ${this.props.hotel.total_price.amount}
+          </List.Description>
+        </List.Content>
+      </List.Item>
     )
     :
     toReturn =(<div>loading</div>)

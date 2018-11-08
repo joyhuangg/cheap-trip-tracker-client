@@ -5,6 +5,7 @@ import {Button} from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
 import { postNewHotel } from '../store/actions/hotelActions'
 import { postTripHotel } from '../store/actions/hotelAdapter'
+import { updateMyTrip } from '../store/actions/tripActions'
 
 class SelectedHotel extends Component {
 
@@ -15,7 +16,6 @@ class SelectedHotel extends Component {
   handleClick = (e) => {
 
     // we want to find or create the selected hotel
-    console.log(this.props.currentTrip)
     let hotel = {
       longitude: this.props.selectedHotel.location.longitude,
       latitude: this.props.selectedHotel.location.latitude,
@@ -36,7 +36,10 @@ class SelectedHotel extends Component {
     })
     // TO DO!!!!!
     //alter longitdue/latitude of trip to be the long/lat of hotel in backend
-
+    this.props.currentTrip.longitude = hotel.longitude
+    this.props.currentTrip.latitude = hotel.latitude
+    this.props.currentTrip.price = hotel.price
+    this.props.updateMyTrip(this.props.currentTrip)
 
 
         // I probably want to show all trip information in some sort of div
@@ -59,15 +62,20 @@ class SelectedHotel extends Component {
   }
 
   render(){
-    return(
-      <div style={{background: 'blue'}}>
-        SelectedHotel Component
-        <Hotel hotel={this.props.selectedHotel} trip={this.props.currentTrip}/>
-        {/* hotel should be equal to the currentTrips first hotel or maybe last hotel added?  */}
-        {this.props.selectedHotel ? <Button onClick={this.handleClick}>Go To Restaurants</Button> : <Button disabled>Please Select a Hotel</Button>}
+    if (this.props.selectedHotel){
+      return(
+        <div>
+          Featured Hotel:
+          <Hotel hotel={this.props.selectedHotel} trip={this.props.currentTrip}/>
+          {/* hotel should be equal to the currentTrips first hotel or maybe last hotel added?  */}
+          {this.props.selectedHotel ? <Button onClick={this.handleClick}>Save Hotel</Button> : <Button disabled>Please Select a Hotel</Button>}
 
-      </div>
-    )
+        </div>
+      )
+    }
+    else{
+      return null
+    }
   }
 
 }
@@ -77,4 +85,4 @@ const mapStateToProps = (state) => {
           currentTrip: state.trips.currentTrip}
 }
 
-export default withRouter(connect(mapStateToProps, {postNewHotel})(SelectedHotel))
+export default withRouter(connect(mapStateToProps, {postNewHotel, updateMyTrip})(SelectedHotel))

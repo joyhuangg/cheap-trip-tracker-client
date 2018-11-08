@@ -21,3 +21,7 @@ export const postNewHotel = (hotel) => {
 export const selectHotel = (hotel) => {
   return {type: "SELECT_HOTEL", payload: hotel}
 }
+
+export const removeHotels = () => {
+  return {type: 'REMOVE_HOTELS'}
+}

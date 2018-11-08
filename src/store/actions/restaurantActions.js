@@ -25,3 +25,7 @@ export const selectRestaurant = (restaurant) => {
 export const removeRestaurant = (restaurant) => {
   return {type: "REMOVE_RESTAURANT", payload: restaurant}
 }
+
+export const removeRestaurants = () => {
+  return {type: "REMOVE_RESTAURANTS"}
+}

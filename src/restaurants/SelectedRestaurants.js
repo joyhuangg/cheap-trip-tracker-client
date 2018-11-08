@@ -5,6 +5,7 @@ import {Button} from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
 import { postNewRestaurant } from '../store/actions/restaurantActions'
 import { postTripRestaurant } from '../store/actions/restaurantAdapter'
+import { updateMyTrip } from '../store/actions/tripActions'
 
 class SelectedRestaurants extends Component {
 
@@ -33,15 +34,20 @@ class SelectedRestaurants extends Component {
         longitude:parseFloat(selectedRestaurant.location.longitude),
         latitude:parseFloat(selectedRestaurant.location.latitude),
         address:selectedRestaurant.location.address,
+        price:selectedRestaurant.average_cost_for_two/2
       }
+      // NOT SAVING MULTIPLE RESTAURANTS
       this.props.postNewRestaurant(restaurant)
       .then((action) => {
         let tripObj
         //save restaurant_trip association in the backend
-        debugger
         this.props.currentTrip.trip ? tripObj = this.props.currentTrip.trip : tripObj = this.props.currentTrip
         postTripRestaurant(tripObj.id, action.payload.id)
       })
+
+      this.props.currentTrip.price += restaurant.price
+      this.props.updateMyTrip(this.props.currentTrip)
+
     })
 
     //alter longitdue/latitude of trip to be the long/lat of restaurant in backend
@@ -70,7 +76,7 @@ class SelectedRestaurants extends Component {
   render(){
     let restaurantCards = this.props.selectedRestaurants.map((restaurant) => < Restaurant key={restaurant.id} restaurant={restaurant} trip={this.props.currentTrip} />)
     return(
-      <div style={{background: 'cyan'}} className="SelectedRestaurants">
+      <div className="SelectedRestaurants">
         SelectedRestaurants Component
         {restaurantCards}<br/>
         {this.props.selectedRestaurants.length > 0 ? <Button onClick={this.handleClick}>Go To Checkout</Button> : <Button disabled>Please Select Restaurants</Button>}
@@ -84,4 +90,4 @@ const mapStateToProps = (state) => {
   return {selectedRestaurants: state.restaurants.selectedRestaurants,
           currentTrip: state.trips.currentTrip}
 }
-export default withRouter(connect(mapStateToProps, {postNewRestaurant})(SelectedRestaurants))
+export default withRouter(connect(mapStateToProps, {postNewRestaurant, updateMyTrip})(SelectedRestaurants))

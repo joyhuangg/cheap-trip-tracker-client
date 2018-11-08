@@ -1,10 +1,11 @@
 import React from 'react'
+import { Container } from 'semantic-ui-react'
 
 const Home = () => {
   return(
-    <div>
-      Home component
-    </div>
+    <Container>
+      <h1>Home component</h1>
+    </Container>
   )
 }
 

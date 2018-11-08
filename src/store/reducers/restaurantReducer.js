@@ -10,6 +10,8 @@ const restaurantReducer = (state = initialState, action) =>{
     case "REMOVE_RESTAURANT":
       let newRestaurants = [...state.selectedRestaurants].filter((restaurant) => restaurant.id !== action.payload.id)
       return {...state, selectedRestaurants: newRestaurants}
+    case "REMOVE_RESTAURNTS":
+      return {restaurants: null, selectedRestaurants: []}
     default:
       return state
   }

@@ -10,7 +10,6 @@ import { withRouter } from 'react-router-dom'
 class TripForm extends Component {
 
   state={
-    // error: false,
     location: "",
     start_date: "",
     end_date: "",
@@ -93,10 +92,10 @@ class TripForm extends Component {
     if (!this.props.currentUser.current_trip_id){
       return(
         <Form onSubmit={this.handleSubmit}>
-          <label>TRIP FORM</label>
+          <label>Create a Trip</label>
           <Form.Field>
-            <label>Location</label>
-            <input placeholder='Location' name="location" onChange={this.handleChange}/>
+            <label>Destination</label>
+            <input placeholder='Destination' name="location" onChange={this.handleChange}/>
           </Form.Field>
           <Form.Field>
             <label>Start Date</label>

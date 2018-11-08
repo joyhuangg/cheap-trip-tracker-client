@@ -17,8 +17,15 @@ class Signup extends Component {
   handleSignUpSubmit = (e) => {
     e.preventDefault()
     this.props.createUser(this.state)
-    this.props.history.push("/profile")
+    .then(() => {
+      this.props.history.push("/profile")
+    })
+    .catch((r) => {
+      alert(r)
+      this.props.history.push("/")
+    })
   }
+
 
   handleChange = (e) => {
     this.setState({[e.target.name]:e.target.value})
@@ -34,7 +41,7 @@ class Signup extends Component {
         </Form.Field>
         <Form.Field>
           <label>Email</label>
-          <input placeholder='Email' name="email" onChange={this.handleChange}/>
+          <input type='email' placeholder='Email' name="email" onChange={this.handleChange}/>
         </Form.Field>
         <Form.Field>
           <label>Password</label>

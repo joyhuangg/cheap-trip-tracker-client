@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import NameTripForm from '../trips/NameTripForm'
 import TripDetail from '../trips/TripDetail'
 import { connect } from 'react-redux'
+import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
+
+// import { loadActivities } from '../store/actions/activityActions'
 
 // import Activities
 
@@ -11,29 +14,27 @@ class Checkout extends Component {
     loaded: false
   }
 
-  componentDidMount(){
-    if (this.props.currentTrip){
-      // debugger
-      // this.props.loadRestaurants(this.props.currentTrip)
-    }
-  }
-
-  componentDidUpdate(){
-    if (this.props.currentTrip && !this.state.loaded){
-      // debugger
-      // this.props.loadRestaurants(this.props.currentTrip)
-      this.setState({loaded:true})
-    }
-  }
-
   render(){
-    return(
-      <div>
-        Checkout Component
-        <NameTripForm />
-        <TripDetail />
-      </div>
-    )
+    let loggedIn = !!this.props.currentUser
+    if (loggedIn){
+      return(
+        <div>
+          <NameTripForm trip={this.props.currentTrip}/>
+          <TripDetail trip={this.props.currentTrip}/>
+        </div>
+      )
+    }
+    else{
+      return(
+        <Segment>
+          <Dimmer active>
+            <Loader />
+          </Dimmer>
+
+          <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+        </Segment>
+      )
+    }
   }
 }
 

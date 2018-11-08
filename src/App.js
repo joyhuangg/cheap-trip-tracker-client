@@ -14,15 +14,16 @@ import RestaurantsContainer from './restaurants/RestaurantsContainer'
 import Checkout from './checkout/Checkout'
 import { connect } from 'react-redux'
 import {YELP_API_KEY, AMADEUS_API_KEY, MAPBOX_API_KEY} from "./.keys"
-import { getCurrentUser, removeUser } from './store'
+import { getCurrentUser, removeUser} from './store'
+import {removeHotels } from './store/actions/hotelActions'
+import {removeTrips, loadMyTrips } from './store/actions/tripActions'
+import {removeRestaurants } from './store/actions/restaurantActions'
 import { loadTrip } from './store/actions/tripActions'
+import { Container } from 'semantic-ui-react'
+
 
 
 class App extends Component {
-// currentUser has keys of
-// name: "",
-// email: "",
-// password: "",
 
   componentDidMount(){
     // TO DO: load all the trips related to user
@@ -33,8 +34,11 @@ class App extends Component {
         // need to find currentTrip if it exists, and set it in the front end for a logged in user
         if (this.props.currentUser.current_trip_id){
           this.props.loadTrip(this.props.currentUser.current_trip)
-          // debugger
         }
+        this.props.loadMyTrips(this.props.currentUser)
+
+        // load user's trips
+
 
       })
 
@@ -48,44 +52,54 @@ class App extends Component {
       // }
     }
     else{
-      console.log("no one logged in")
+      alert("No one logged in")
+      this.props.history.push("/")
     }
   }
 
   handleLogout = () => {
     localStorage.removeItem("token")
     this.props.removeUser()
+    this.props.removeHotels()
+    this.props.removeRestaurants()
+    this.props.removeTrips()
     // TO DO: NEED TO REMOVE HOTELS, RESTUARANTS, TRIPS ETC.
     console.log("logging out")
   }
 
   render() {
     return (
-      <div className="App">
-
+      // make this take up the whole width
+      <Container>
           <Navbar currentUser={this.props.currentUser} handleLogout={this.handleLogout}/>
           <Switch>
-            <Route path="/trips" render={(routerProps) => <TripsContainer {...routerProps} trips={this.state.trips} currentUser={this.props.currentUser}/>} />
+            {/* <Route path="/trips" render={(routerProps) => <TripsContainer {...routerProps} trips={this.props.trips} currentUser={this.props.currentUser}/>} /> */}
             <Route path="/signup" render={(routerProps)=> <Signup {...routerProps} handleSignUpSubmit={this.handleSignUpSubmit}/>} />
             <Route path="/login" render={()=> <Login  handleLogin={this.handleLogin}/>} />
+
+
+{/*
             <Route path="/profile" render={(routerProps) => <Profile {...routerProps} currentUser={this.props.currentUser}/>}/>
             <Route path="/hotels" render={(routerProps) => <HotelsContainer {...routerProps} currentUser={this.props.currentUser}/>}/>
             <Route path="/restaurants" render={(routerProps) => <RestaurantsContainer {...routerProps} currentUser={this.props.currentUser}/>}/>
-            <Route path="/checkout" render={(routerProps) => <Checkout {...routerProps} currentUser={this.props.currentUser}/>}/>
-            <Route path="/" component={Home} />
+            <Route path="/checkout" render={(routerProps) => <Checkout {...routerProps} currentUser={this.props.currentUser}/>}/> */}
+
+
+            {/* <Route exact path="/" component={Home} /> */}
           </Switch>
           {/* add activities and flights later */}
         <footer>
           <Footer/>
         </footer>
-      </div>
+      </Container>
     );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser.currentUser
+    currentUser: state.currentUser.currentUser,
+    trips: state.trips.trips
   }
 }
 
@@ -93,4 +107,4 @@ const mapStateToProps = (state) => {
 //   return {getCurrentUser: (token) => dispatch(getCurrentUser(token))}
 // }
 
-export default withRouter(connect(mapStateToProps, {getCurrentUser, removeUser, loadTrip})(App))
+export default withRouter(connect(mapStateToProps, {getCurrentUser, removeUser, loadTrip, removeTrips, removeRestaurants, removeHotels, loadMyTrips })(App))

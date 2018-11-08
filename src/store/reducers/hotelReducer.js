@@ -7,6 +7,8 @@ const hotelReducer = (state = initialState, action) =>{
       return {...state, hotels: action.payload}
     case "SELECT_HOTEL":
       return {...state, selectedHotel: action.payload}
+    case "REMOVE_HOTELS":
+      return {hotels: null, selectedHotel: null}
     default:
       return state
   }

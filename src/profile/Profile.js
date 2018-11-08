@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import TripForm from './TripForm'
 import { connect} from 'react-redux'
-import {Button} from 'semantic-ui-react'
+// import {} from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
+import { Dimmer, Loader, Image } from 'semantic-ui-react'
+import { Grid, Menu, Segment, Button} from 'semantic-ui-react'
+import TripDetail from '../trips/TripDetail'
+
 class Profile extends Component {
+
+
+
+  state = { activeItem: 'bio' }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   handleClick = (e) => {
     this.props.history.push("/hotels")
   }
-
   render(){
 
     let loggedIn = !!this.props.currentUser
@@ -41,24 +50,34 @@ class Profile extends Component {
         }
       }
       // this.props.currentUser.currentUser.user ? user = this.props.currentUser.currentUser : user = this.props.currentUser.currentUser.user
-
+      const { activeItem } = this.state
       toReturn =
       (
         <div>
-          {user.name}'s Profile Component
-          {user.current_trip_id? (<div><Button onClick={this.handleClick}>Continue To Trip in Progress</Button></div>) : (<TripForm currentUser={user} />)}
+          {user.current_trip_id?
+            (<TripDetail trip={this.props.currentTrip}/>)
+            : (<TripForm currentUser={user} />)}
         </div>
       )
     }
     else{
-      toReturn =  (<div>Please Log In</div>)
+      return(
+        <Segment>
+          <Dimmer active>
+            <Loader />
+          </Dimmer>
+
+          <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+        </Segment>
+      )
     }
     return toReturn
   }
 }
 
 const mapStateToProps = state => {
-  return {currentUser: state.currentUser}
+  return {currentUser: state.currentUser,
+          currentTrip: state.trips.currentTrip}
 }
 
 export default withRouter(connect(mapStateToProps)(Profile))

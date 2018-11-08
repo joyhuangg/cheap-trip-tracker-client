@@ -4,6 +4,13 @@
 export const getUsers = () => {
   return fetch(`http://localhost:3000/api/v1/users/`)
   .then(r => r.json())
+  .then(res => {
+    //set state
+    if (res.error){
+      throw new Error(res.error)
+    }
+    return res
+  })
 }
 
 export const getUser = (user) => {
@@ -60,6 +67,12 @@ export const postUser = (user) => {
 
   })
   .then(r => r.json())
+  .then((res) => {
+    if (res.error){
+      throw new Error(res.error)
+    }
+    return res
+  })
 }
 
 
