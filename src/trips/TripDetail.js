@@ -1,12 +1,26 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Restaurant from '../restaurants/Restaurant'
-import { Dimmer, Loader, Image, Segment, Divider, Button } from 'semantic-ui-react'
-import {deleteCurrentTrip} from '../store/actions/tripActions'
+import { Dimmer, Loader, Image, Segment, Divider, Button, Modal } from 'semantic-ui-react'
+import {removeCurrentTrip} from '../store/actions/userActions'
+import {withRouter} from 'react-router-dom'
 
 class TripDetail extends Component{
+  state = { open: false }
+
+  show = size => () => this.setState({ size, open: true })
+  close = (e) => {
+    if (e.target.name === "Yes"){
+      this.props.removeCurrentTrip(this.props.currentUser)
+      this.props.history.push('/profile')
+    }
+    this.setState({ open: false })
+  }
+
   render(){
-    if (this.props.trip){
+    const { open, size } = this.state
+
+    if (this.props.trip && this.props.currentUser){
       let start_date = new Date(this.props.trip.start_date)
       let start_date_converted = (start_date.getMonth() + 1) + '/' + start_date.getDate() + '/' +  start_date.getFullYear()
       let end_date = new Date(this.props.trip.end_date)
@@ -15,8 +29,8 @@ class TripDetail extends Component{
       let restaurants = this.props.trip.restaurants.map((restaurant) => < Restaurant key={restaurant.id} restaurant={restaurant}/>)
       // let activites
       return(
-        <div>
-          <h1>CURRENT TRIP'S DETAIL <Button right>Start New Trip</Button></h1>
+        <div className="scroll-container">
+          <h1>CURRENT TRIP'S DETAIL <Button floated="right" onClick={this.show('tiny')}>Start New Trip</Button></h1>
           <Divider />
           {this.props.trip.name ? <h2>{this.props.trip.name}</h2> : null}
           <h2>Destination: {this.props.trip.location}</h2>
@@ -40,6 +54,17 @@ class TripDetail extends Component{
             {restaurants}
           </div> : null }
 
+          <Modal size={size} open={open} onClose={this.close}>
+            <Modal.Header>Start a New Trip</Modal.Header>
+            <Modal.Content>
+              <p>Are you sure you want to start a new trip?</p>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button onClick={this.close} negative icon="x" labelPosition='right' content='No' name="No" />
+              <Button onClick={this.close} positive icon='checkmark' labelPosition='right' content='Yes' name="Yes" />
+            </Modal.Actions>
+          </Modal>
+
 
         </div>
       )
@@ -59,4 +84,7 @@ class TripDetail extends Component{
   }
 }
 
-export default TripDetail
+const mapStateToProps = (state) => {
+  return {currentUser: state.currentUser.currentUser}
+}
+export default withRouter(connect(mapStateToProps, {removeCurrentTrip})(TripDetail))

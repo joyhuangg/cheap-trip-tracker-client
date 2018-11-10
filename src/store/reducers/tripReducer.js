@@ -5,6 +5,13 @@ const tripReducer = (state = initialState, action) =>{
   switch( action.type ){
     case "SET_CURRENT_TRIP":
       return {...state, currentTrip: action.payload}
+    case "DELETE_CURRENT_TRIP":
+      return {...state, currentTrip: null}
+    case "DELETE TRIP":
+      let newTrips = state.trips.filter((trip) => trip.id !== action.payload.id)
+      let currentTrip
+      currentTrip.id === action.payload.id ? currentTrip = null : currentTrip = {...state.currentTrip}
+      return {...state, currenTrip:currentTrip, trips:newTrips}
     case "LOAD_TRIPS":
       return {...state, trips: action.payload}
     case "EDIT_TRIP":
@@ -14,7 +21,7 @@ const tripReducer = (state = initialState, action) =>{
     case  "ADD_RESTAURANT_TO_TRIP":
       return {...state, currentTrip: {...state.currentTrip, restaurants:[...state.currentTrip.restaurants, action.payload]}}
     case "FINALIZE_TRIP":
-      let newTrips = [...state.trips, action.payload]
+      newTrips = [...state.trips, action.payload]
       return {currentTrip:null, trips: newTrips}
     case "REMOVE_TRIPS":
       return {currentTrip: null, trips: []}

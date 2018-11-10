@@ -9,24 +9,10 @@ class RestaurantsContainer extends Component {
     let loggedIn = !!this.props.currentUser
     if (loggedIn){
       return(
-        <div >
-
-          <Header>Select Cheap Eats!</Header>
-          <Grid columns={3}>
-            <Grid.Row>
-              <Grid.Column>
-                < RestaurantList />
-              </Grid.Column>
-              <Grid.Column>
-                Show details of restaurant here?
-              </Grid.Column>
-              <Grid.Column>
-                < SelectedRestaurants />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-
-
+        <div className="scroll-container">
+          <Header textAlign='center'>Select Cheap Eats!</Header>
+          < RestaurantList />
+          < SelectedRestaurants />
         </div>
       )
     }

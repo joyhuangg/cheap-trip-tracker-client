@@ -60,14 +60,20 @@ VerticalSidebar.propTypes = {
 class Navbar extends Component {
 
   state = {
-    animation: 'overlay',
+    animation: 'push',
     direction: 'left',
     dimmed: false,
-    visible: false,
+    visible: true,
   }
 
   componentDidMount(){
     // TO DO: load all the trips related to user
+    const pathname = this.props.history.location.pathname
+    // debugger
+
+    // else{
+    //   this.handleAnimationChange('push', true)
+    // }
     const token = localStorage.getItem("token")
     if (!!token && token !== "undefined"){
       this.props.getCurrentUser(token)
@@ -98,6 +104,14 @@ class Navbar extends Component {
     }
   }
 
+  componentDidUpdate(){
+    const pathname = this.props.history.location.pathname
+
+    if (pathname === "/trips"){
+      this.handleAnimationChange('push', false)
+    }
+  }
+
 // changed this to just always be visible
   handleAnimationChange = (animation, show) => () => {
     this.setState({ animation, visible: show })
@@ -122,21 +136,22 @@ class Navbar extends Component {
     const { animation, dimmed, direction, visible } = this.state
     const vertical = direction === 'bottom' || direction === 'top'
     let id
+    // debugger
 
     loggedIn ?
         toReturn = (
           <Container>
           <Menu inverted>
             <Menu.Item>
-              <Link to="/" disabled={vertical} onClick={this.handleAnimationChange('slide along', false)} className="logo">Cheap Trip Tracker</Link>
+              <Link to="/" disabled={vertical} onClick={this.handleAnimationChange('push', false)} className="logo">Cheap Trip Tracker</Link>
             </Menu.Item>
             <Menu.Item >
               {this.props.currentTrip ?
-                <Link to="/profile" disabled={vertical} onClick={this.handleAnimationChange('slide along', true)}>Edit Trip</Link>
-                :<Link to="/profile" disabled={vertical} onClick={this.handleAnimationChange('slide along', true)}>New Trip</Link>}
+                <Link to="/profile" disabled={vertical} onClick={this.handleAnimationChange('push', true)}>Edit Current Trip</Link>
+                :<Link to="/profile" disabled={vertical} onClick={this.handleAnimationChange('push', true)}>New Trip</Link>}
             </Menu.Item>
             <Menu.Item >
-              <Link disabled={vertical} onClick={this.handleAnimationChange('slide along', false)}to="/trips">My Saved Trips</Link>
+              <Link disabled={vertical} onClick={this.handleAnimationChange('push', false)}to="/trips">My Saved Trips</Link>
             </Menu.Item>
             <Menu.Item >
               <Link to="/" onClick={this.props.handleLogout}>Logout</Link>
@@ -153,14 +168,14 @@ class Navbar extends Component {
               <Segment basic>
                 <Switch>
                   <Route path ="/trips/:id" render={(routerProps) => <TripDetail {...routerProps} trip={this.props.currentTrip} currentUser={this.props.currentUser}/>}/>
-                  <Route path="/trips" render={(routerProps) => <TripsContainer {...routerProps} trips={this.props.trips} currentUser={this.props.currentUser}/>} />
+                  <Route  disabled={vertical} onClick={this.handleAnimationChange('push', false)} path="/trips" render={(routerProps) => <TripsContainer {...routerProps} trips={this.props.trips} currentUser={this.props.currentUser}/>} />
                   <Route path="/signup" render={(routerProps)=> <Signup {...routerProps} handleSignUpSubmit={this.handleSignUpSubmit}/>} />
                   <Route path="/login" render={()=> <Login  handleLogin={this.handleLogin}/>} />
 
 
                   <Route path="/profile" render={(routerProps) => <Profile {...routerProps} currentUser={this.props.currentUser}/>}/>
-                  <Route path="/hotels" render={(routerProps) => <HotelsContainer {...routerProps} currentUser={this.props.currentUser}/>}/>
-                  <Route path="/restaurants" render={(routerProps) => <RestaurantsContainer {...routerProps} currentUser={this.props.currentUser}/>}/>
+                  <Route disabled={vertical} onClick={this.handleAnimationChange('push', true)} path="/hotels" render={(routerProps) => <HotelsContainer {...routerProps} currentUser={this.props.currentUser}/>}/>
+                  <Route disabled={vertical} onClick={this.handleAnimationChange('push', true)} path="/restaurants" render={(routerProps) => <RestaurantsContainer {...routerProps} currentUser={this.props.currentUser}/>}/>
                   <Route path="/checkout" render={(routerProps) => <Checkout {...routerProps} currentUser={this.props.currentUser}/>}/>
 
 
@@ -174,7 +189,7 @@ class Navbar extends Component {
         ):
 
         toReturn = (
-          <Menu>
+          <Menu inverted>
             <Menu.Item>
               <Link to="/" className="logo">Cheap Trip Tracker</Link>
             </Menu.Item>

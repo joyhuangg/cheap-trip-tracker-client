@@ -31,7 +31,13 @@ class TripForm extends Component {
     .send()
     .then(response => {
       const match = response.body;
-      if (match.features.length > 0){
+      if (Date.parse(this.state.end_date) <= Date.parse(this.state.start_date)){
+        alert("End date must be later than start date")
+      }
+      else if (Date.parse(this.state.end_date) <= Date.now() || Date.parse(this.state.start_date) < Date.now()){
+        alert("Dates cannot be on or before today's date")
+      }
+      else if (match.features.length > 0){
         let trip = {
           user_id: this.props.currentUser.id,
           location: match.features[0].text,
@@ -91,25 +97,28 @@ class TripForm extends Component {
 
     if (!this.props.currentUser.current_trip_id){
       return(
-        <Form onSubmit={this.handleSubmit}>
+        <Form className="center" onSubmit={this.handleSubmit}>
           <label>Create a Trip</label>
-          <Form.Field>
-            <label>Destination</label>
-            <input placeholder='Destination' name="location" onChange={this.handleChange}/>
-          </Form.Field>
-          <Form.Field>
-            <label>Start Date</label>
-            <input type="date" placeholder='Start Date' name="start_date" onChange={this.handleChange}/>
-          </Form.Field>
-          <Form.Field>
-            <label>End Date</label>
-            <input type="date" placeholder='End Date' name="end_date" onChange={this.handleChange}/>
-          </Form.Field>
-          <Form.Field>
-            <label>Number of People</label>
-            <input type="number" placeholder='Number of People' name="num_ppl" onChange={this.handleChange}/>
-          </Form.Field>
-          <Button type='submit'>Submit</Button>
+          <Form.Group>
+            <Form.Field>
+              <label>Destination</label>
+              <input placeholder='Destination' name="location" onChange={this.handleChange}/>
+            </Form.Field>
+            <Form.Field>
+              <label>Start Date</label>
+              <input type="date" placeholder='Start Date' name="start_date" onChange={this.handleChange}/>
+            </Form.Field>
+            <Form.Field>
+              <label>End Date</label>
+              <input type="date" placeholder='End Date' name="end_date" onChange={this.handleChange}/>
+            </Form.Field>
+            <Form.Field>
+              <label>Number of People</label>
+              <input type="number" placeholder='Number of People' name="num_ppl" onChange={this.handleChange}/>
+            </Form.Field>
+            <Button type='submit'>Submit</Button>
+          </Form.Group>
+
         </Form>
       )
     }

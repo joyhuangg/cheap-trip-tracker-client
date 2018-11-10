@@ -53,9 +53,9 @@ class Profile extends Component {
       const { activeItem } = this.state
       toReturn =
       (
-        <div>
+        <div className="tall-container">
           {user.current_trip_id?
-            (<TripDetail trip={this.props.currentTrip}/>)
+            (<TripDetail trip={this.props.currentTrip} />)
             : (<TripForm currentUser={user} />)}
         </div>
       )

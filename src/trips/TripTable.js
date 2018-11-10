@@ -12,15 +12,14 @@ class TripTable extends Component {
     let trips = this.props.currentUser.trips.map((trip) => < TripRow key ={trip.id} trip={trip}/>)
     return(
         // <TripRow/>
-        <Table celled padded>
+        <Table celled  >
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell singleLine>Trip</Table.HeaderCell>
               <Table.HeaderCell>Location</Table.HeaderCell>
-              <Table.HeaderCell>Start Date</Table.HeaderCell>
-              <Table.HeaderCell>End Date</Table.HeaderCell>
-              <Table.HeaderCell>Number of People</Table.HeaderCell>
+              <Table.HeaderCell>Dates</Table.HeaderCell>
               <Table.HeaderCell>Price</Table.HeaderCell>
+              <Table.HeaderCell></Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 

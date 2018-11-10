@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import HotelList from './HotelList'
 import SelectedHotel from './SelectedHotel'
-import { Dimmer, Loader, Image, Segment, Header, Grid } from 'semantic-ui-react'
-
+import { Dimmer, Loader, Image, Segment, Header, Grid, Button } from 'semantic-ui-react'
+import StickyLayout from '../trips/StickyLayout'
 // import { connect } from 'react-redux'
 
 class HotelsContainer extends Component {
@@ -11,23 +11,11 @@ class HotelsContainer extends Component {
     let loggedIn = !!this.props.currentUser
     if (loggedIn){
       return(
-        <div>
-          <Header>Pick a hotel to stay at!</Header>
-          <Grid columns={3}>
-            <Grid.Row>
-              <Grid.Column>
-                < HotelList />
-              </Grid.Column>
-              <Grid.Column>
-                Show details of hotel here?
-              </Grid.Column>
-              <Grid.Column>
-                < SelectedHotel />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-
-
+        <div className="scroll-container">
+          <Header textAlign='center'>Pick a hotel to stay at!</Header>
+          < Button attached="top">See Selected Hotels</Button>
+          < HotelList />
+          < SelectedHotel />
         </div>
       )
     }

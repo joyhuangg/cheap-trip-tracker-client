@@ -43,7 +43,6 @@ export const deleteTrip = (trip) => {
       Authorization: localStorage.getItem("token")
     },
   })
-  .then(r => r.json())
 }
 
 export const updateTrip = (trip) => {

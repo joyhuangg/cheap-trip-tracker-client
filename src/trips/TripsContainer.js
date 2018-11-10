@@ -9,7 +9,7 @@ class TripsContainer extends Component {
     let loggedIn = !!this.props.currentUser
     if (loggedIn){
       return(
-        <div>
+        <div className="tall-container">
           <h1> My Saved Trips </h1>
           <TripTable currentUser={this.props.currentUser} />
         </div>

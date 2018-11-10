@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Restaurant from './Restaurant'
 import { connect } from 'react-redux'
 import { loadRestaurants } from '../store/actions/restaurantActions'
+import { List } from 'semantic-ui-react'
 
 
 // TO DO: follow example of restaurants to create a list of restaurants, use yelp api
@@ -32,9 +33,9 @@ class RestaurantList extends Component {
     let restaurants
     this.props.restaurants ? restaurants = this.props.restaurants.map((restaurant) => < Restaurant key={restaurant.restaurant.id} restaurant={restaurant.restaurant} trip={this.props.currentTrip} />) : restaurants = []
     return(
-      <div className="RestaurantList" >
+      <List className="RestaurantList" size="big" style={{float: 'left'}} divided>
         {restaurants}
-      </div>
+      </List>
     )
   }
 }
