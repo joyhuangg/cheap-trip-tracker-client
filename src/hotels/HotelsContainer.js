@@ -2,20 +2,23 @@ import React, { Component } from 'react';
 import HotelList from './HotelList'
 import SelectedHotel from './SelectedHotel'
 import { Dimmer, Loader, Image, Segment, Header, Grid, Button } from 'semantic-ui-react'
-import StickyLayout from '../trips/StickyLayout'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
+import { Icon } from 'semantic-ui-react'
+import VerticalSidebar from '../VerticalSidebar'
+
 
 class HotelsContainer extends Component {
 
   render(){
     let loggedIn = !!this.props.currentUser
-    if (loggedIn){
+    if (loggedIn && this.props.currentTrip){
       return(
         <div className="scroll-container">
+          <VerticalSidebar animation={'push'} direction={'left'} visible={true} id={this.props.currentTrip.id}/>
           <Header textAlign='center'>Pick a hotel to stay at!</Header>
-          < Button attached="top">See Selected Hotels</Button>
-          < HotelList />
           < SelectedHotel />
+          < HotelList />
+
         </div>
       )
     }
@@ -34,6 +37,9 @@ class HotelsContainer extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {currentUser: state.currentUser.currentUser,
+          currentTrip: state.trips.currentTrip}
+}
 
-
-export default HotelsContainer
+export default connect(mapStateToProps)(HotelsContainer)

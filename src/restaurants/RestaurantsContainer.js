@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import RestaurantList from './RestaurantList'
 import SelectedRestaurants from './SelectedRestaurants'
 import { Dimmer, Loader, Image, Segment, Header, Grid } from 'semantic-ui-react'
-
+import { connect } from 'react-redux'
+import VerticalSidebar from '../VerticalSidebar'
 
 class RestaurantsContainer extends Component {
   render(){
     let loggedIn = !!this.props.currentUser
-    if (loggedIn){
+    if (loggedIn && this.props.currentTrip){
       return(
         <div className="scroll-container">
+          <VerticalSidebar animation={'push'} direction={'left'} visible={true} id={this.props.currentTrip.id}/>
           <Header textAlign='center'>Select Cheap Eats!</Header>
-          < RestaurantList />
           < SelectedRestaurants />
+          < RestaurantList />
         </div>
       )
     }
@@ -31,4 +33,9 @@ class RestaurantsContainer extends Component {
   }
 }
 
-export default RestaurantsContainer
+const mapStateToProps = (state) => {
+  return {currentUser: state.currentUser.currentUser,
+          currentTrip: state.trips.currentTrip}
+}
+
+export default connect(mapStateToProps)(RestaurantsContainer)

@@ -69,6 +69,10 @@ export const removeTrips = () => {
   return {type:'REMOVE_TRIPS'}
 }
 
+export const deleteHotelFromTrip = () => {
+  return {type:'DELETE_HOTEL_FROM_TRIP'}
+}
+
 const deleteSelectedTrip = (trip) => ({type: 'DELETE_TRIP', payload: trip})
 
 const editTrip = (trip) => ({type: 'EDIT_TRIP', payload: trip})

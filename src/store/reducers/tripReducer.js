@@ -16,8 +16,10 @@ const tripReducer = (state = initialState, action) =>{
       return {...state, trips: action.payload}
     case "EDIT_TRIP":
       return {...state, currentTrip:action.payload}
-    case  "ADD_HOTEL_TO_TRIP":
-      return {...state, currentTrip: {...state.currentTrip, longitude:action.payload.longitude, latitude:action.payload.latitude, hotels:[action.payload]}}
+      case  "ADD_HOTEL_TO_TRIP":
+        return {...state, currentTrip: {...state.currentTrip, longitude:action.payload.longitude, latitude:action.payload.latitude, hotels:[action.payload]}}
+    case  "DELETE_HOTEL_FROM_TRIP":
+      return {...state, currentTrip: {...state.currentTrip, hotels:[]}}
     case  "ADD_RESTAURANT_TO_TRIP":
       return {...state, currentTrip: {...state.currentTrip, restaurants:[...state.currentTrip.restaurants, action.payload]}}
     case "FINALIZE_TRIP":

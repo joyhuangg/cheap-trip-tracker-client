@@ -4,9 +4,18 @@ import Restaurant from '../restaurants/Restaurant'
 import { Dimmer, Loader, Image, Segment, Divider, Button, Modal } from 'semantic-ui-react'
 import {removeCurrentTrip} from '../store/actions/userActions'
 import {withRouter} from 'react-router-dom'
+import VerticalSidebar from '../VerticalSidebar'
+
+
+
 
 class TripDetail extends Component{
-  state = { open: false }
+  state = { open: false,
+    animation: 'push',
+    direction: 'left',
+    dimmed: false,
+    visible: true,
+  }
 
   show = size => () => this.setState({ size, open: true })
   close = (e) => {
@@ -19,6 +28,8 @@ class TripDetail extends Component{
 
   render(){
     const { open, size } = this.state
+    const { animation, dimmed, direction, visible } = this.state
+    const vertical = direction === 'bottom' || direction === 'top'
 
     if (this.props.trip && this.props.currentUser){
       let start_date = new Date(this.props.trip.start_date)
@@ -29,44 +40,48 @@ class TripDetail extends Component{
       let restaurants = this.props.trip.restaurants.map((restaurant) => < Restaurant key={restaurant.id} restaurant={restaurant}/>)
       // let activites
       return(
-        <div className="scroll-container">
-          <h1>CURRENT TRIP'S DETAIL <Button floated="right" onClick={this.show('tiny')}>Start New Trip</Button></h1>
-          <Divider />
-          {this.props.trip.name ? <h2>{this.props.trip.name}</h2> : null}
-          <h2>Destination: {this.props.trip.location}</h2>
-          <h2>Start date: {start_date_converted}</h2>
-          <h2>End date: {end_date_converted}</h2>
-          <h2>Party #: {this.props.trip.num_ppl}</h2>
-          {this.props.trip.price ? <h2>Price: ${this.props.trip.price}</h2> : null}
-          {this.props.trip.hotels.length > 0 ? <div>
+        <React.Fragment>
+          <VerticalSidebar animation={animation} direction={direction} visible={visible} id={this.props.currentTrip.id}/>
+          <div className="trip-detail-container">
+            <h1>CURRENT TRIP'S DETAIL <Button floated="right" onClick={this.show('tiny')}>Start New Trip</Button></h1>
+            <Divider />
+            {this.props.trip.name ? <h2>{this.props.trip.name}</h2> : null}
+            <h2>Destination: {this.props.trip.location}</h2>
+            <h2>Start date: {start_date_converted}</h2>
+            <h2>End date: {end_date_converted}</h2>
+            <h2>Party #: {this.props.trip.num_ppl}</h2>
+            {this.props.trip.price ? <h2>Price: ${this.props.trip.price}</h2> : null}
+            {this.props.trip.hotels.length > 0 ? <div>
+
+              <Divider />
+              {/* maybe make this into a HotelDetail component? */}
+              <h2>Hotel: {this.props.trip.hotels[0].property_name}</h2>
+              <p>Address: {this.props.trip.hotels[0].address}</p>
+              <p>Hotel Price: ${this.props.trip.hotels[0].price}</p>
+            </div> : null}
 
             <Divider />
-            {/* maybe make this into a HotelDetail component? */}
-            <h2>Hotel: {this.props.trip.hotels[0].property_name}</h2>
-            <p>Address: {this.props.trip.hotels[0].address}</p>
-            <p>Hotel Price: ${this.props.trip.hotels[0].price}</p>
-          </div> : null}
+            {/* maybe make this into a RestaurantDetail component? */}
+            {this.props.trip.restaurants.length > 0 ? <div>
+              <h2>Restaurants: </h2>
+              {restaurants}
+            </div> : null }
 
-          <Divider />
-          {/* maybe make this into a RestaurantDetail component? */}
-          {this.props.trip.restaurants.length > 0 ? <div>
-            <h2>Restaurants: </h2>
-            {restaurants}
-          </div> : null }
-
-          <Modal size={size} open={open} onClose={this.close}>
-            <Modal.Header>Start a New Trip</Modal.Header>
-            <Modal.Content>
-              <p>Are you sure you want to start a new trip?</p>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button onClick={this.close} negative icon="x" labelPosition='right' content='No' name="No" />
-              <Button onClick={this.close} positive icon='checkmark' labelPosition='right' content='Yes' name="Yes" />
-            </Modal.Actions>
-          </Modal>
+            <Modal size={size} open={open} onClose={this.close}>
+              <Modal.Header>Start a New Trip</Modal.Header>
+              <Modal.Content>
+                <p>Are you sure you want to start a new trip?</p>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button onClick={this.close} negative icon="x" labelPosition='right' content='No' name="No" />
+                <Button onClick={this.close} positive icon='checkmark' labelPosition='right' content='Yes' name="Yes" />
+              </Modal.Actions>
+            </Modal>
 
 
-        </div>
+          </div>
+        </React.Fragment>
+
       )
     }
     else{
@@ -85,6 +100,7 @@ class TripDetail extends Component{
 }
 
 const mapStateToProps = (state) => {
-  return {currentUser: state.currentUser.currentUser}
+  return {currentUser: state.currentUser.currentUser,
+          currentTrip: state.trips.currentTrip}
 }
 export default withRouter(connect(mapStateToProps, {removeCurrentTrip})(TripDetail))

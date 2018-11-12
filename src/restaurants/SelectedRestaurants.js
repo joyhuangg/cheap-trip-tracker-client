@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Restaurant from './Restaurant'
 import {connect} from 'react-redux'
-import {Button} from 'semantic-ui-react'
+import {Button, Modal, Icon} from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
 import { postNewRestaurant } from '../store/actions/restaurantActions'
 import { postTripRestaurant } from '../store/actions/restaurantAdapter'
@@ -13,6 +13,16 @@ class SelectedRestaurants extends Component {
     restaurants:this.props.selectedRestaurants
   }
 
+  handleDelete = (e, trip, hotel) => {
+    // deleteTripHotel(trip.id, hotel.id)
+    // let newTrip = {...trip }
+    // newTrip.price -= parseFloat(hotel.price)
+    // newTrip.hotels = []
+    //
+    // this.props.removeSelectedHotel()
+    // this.props.updateMyTrip(newTrip)
+    debugger
+  }
   handleClick = (e) => {
     // t.string :image_url
     // t.string :name
@@ -76,13 +86,32 @@ class SelectedRestaurants extends Component {
   render(){
     let restaurantCards = this.props.selectedRestaurants.map((restaurant) => < Restaurant key={restaurant.id} restaurant={restaurant} trip={this.props.currentTrip} />)
     return(
-      <div className="SelectedRestaurants">
-        SelectedRestaurants Component
-        {restaurantCards}<br/>
-        {this.props.selectedRestaurants.length > 0 ? <Button onClick={this.handleClick}>Go To Checkout</Button> : <Button disabled>Please Select Restaurants</Button>}
-
-      </div>
+        <Modal
+          trigger={< Button attached="top"><Icon inverted circular color='teal' name='food' />See Selected Restaurants</Button>}
+          header='Selected Restaurants'
+          content={restaurantCards}
+          actions={[<Button
+              content='Confirm'
+              key='confirm'
+              positive='true'
+              onClick={(e) => this.handleClick(e)}
+              />,<Button
+              content='Delete'
+              key='delete'
+              negative='true'
+              onClick={(e) => this.handleDelete(e, this.props.currentTrip, this.props.selectedHotel)}
+              />, { key: 'done', content: 'Done', positive: true }]}
+        />
     )
+
+    // return(
+    //   <div className="SelectedRestaurants">
+    //     SelectedRestaurants Component
+    //     {restaurantCards}<br/>
+    //     {this.props.selectedRestaurants.length > 0 ? <Button onClick={this.handleClick}>Go To Checkout</Button> : <Button disabled>Please Select Restaurants</Button>}
+    //
+    //   </div>
+    // )
   }
 }
 

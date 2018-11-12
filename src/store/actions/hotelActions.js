@@ -25,3 +25,7 @@ export const selectHotel = (hotel) => {
 export const removeHotels = () => {
   return {type: 'REMOVE_HOTELS'}
 }
+
+export const removeSelectedHotel = () => {
+  return {type: 'REMOVE_SELECTED_HOTEL'}
+}

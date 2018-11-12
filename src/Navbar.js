@@ -70,6 +70,9 @@ class Navbar extends Component {
     // TO DO: load all the trips related to user
     const pathname = this.props.history.location.pathname
     // debugger
+    if (pathname === "/trips"){
+      this.handleAnimationChange('push', false)
+    }
 
     // else{
     //   this.handleAnimationChange('push', true)
@@ -160,9 +163,9 @@ class Navbar extends Component {
 
 
           <Sidebar.Pushable as={Segment}>
-            {vertical || !this.props.currentTrip ? null : (
-              <VerticalSidebar animation={animation} direction={direction} visible={visible} id={this.props.currentTrip.id}/>
-            )}
+            {/* {visible || !this.props.currentTrip ? null : (
+              // <VerticalSidebar animation={animation} direction={direction} visible={visible} id={this.props.currentTrip.id}/>
+            )} */}
 
             <Sidebar.Pusher dimmed={dimmed && visible}>
               <Segment basic>

@@ -35,3 +35,15 @@ export const postTripHotel = (trip_id, hotel_id) => {
   })
   .then(r => r.json())
 }
+
+export const deleteTripHotel = (trip_id, hotel_id) => {
+  return fetch(`http://localhost:3000/api/v1/trip_hotels`, {
+    method: "DELETE",
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      Authorization: localStorage.getItem("token")
+    },
+    body:JSON.stringify({trip_id:trip_id, hotel_id:hotel_id})
+  })
+}

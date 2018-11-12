@@ -32,7 +32,7 @@ class HotelList extends Component {
     let hotels
     this.props.hotels ? hotels = this.props.hotels.map((hotel) => < Hotel key={hotel.property_code} hotel={hotel} trip={this.props.currentTrip} />) : hotels = []
     return(
-      <List  size="big" style={{float: 'left'}} divided>
+      <List  selection size="big" style={{float: 'left'}} divided>
         {hotels}
       </List>
     )
