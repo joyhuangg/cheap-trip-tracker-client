@@ -24,38 +24,6 @@ import { loadTrip } from './store/actions/tripActions'
 import { Container } from 'semantic-ui-react'
 import TripDetail from './trips/TripDetail'
 
-const VerticalSidebar = ({ animation, direction, visible, id }) => (
-  <Sidebar
-    as={Menu}
-    animation={animation}
-    direction={direction}
-    icon='labeled'
-    inverted
-    vertical
-    visible={visible}
-    width='thin'
-  >
-    <Menu.Item as={Link} to={`/trips/${id}`}>
-      <Icon name='road' />
-      Current Trip Details
-    </Menu.Item>
-    <Menu.Item as={Link} to="/hotels">
-      <Icon name='home' />
-      Hotels
-    </Menu.Item>
-    <Menu.Item as={Link} to="/restaurants">
-      <Icon name='food' />
-      Restaurants
-    </Menu.Item>
-  </Sidebar>
-)
-
-VerticalSidebar.propTypes = {
-  animation: PropTypes.string,
-  direction: PropTypes.string,
-  visible: PropTypes.bool,
-  id: PropTypes.number,
-}
 
 class Navbar extends Component {
 
@@ -143,7 +111,6 @@ class Navbar extends Component {
 
     loggedIn ?
         toReturn = (
-          <Container>
           <Menu inverted>
             <Menu.Item>
               <Link to="/" disabled={vertical} onClick={this.handleAnimationChange('push', false)} className="logo">Cheap Trip Tracker</Link>
@@ -160,35 +127,6 @@ class Navbar extends Component {
               <Link to="/" onClick={this.props.handleLogout}>Logout</Link>
             </Menu.Item>
           </Menu>
-
-
-          <Sidebar.Pushable as={Segment}>
-            {/* {visible || !this.props.currentTrip ? null : (
-              // <VerticalSidebar animation={animation} direction={direction} visible={visible} id={this.props.currentTrip.id}/>
-            )} */}
-
-            <Sidebar.Pusher dimmed={dimmed && visible}>
-              <Segment basic>
-                <Switch>
-                  <Route path ="/trips/:id" render={(routerProps) => <TripDetail {...routerProps} trip={this.props.currentTrip} currentUser={this.props.currentUser}/>}/>
-                  <Route  disabled={vertical} onClick={this.handleAnimationChange('push', false)} path="/trips" render={(routerProps) => <TripsContainer {...routerProps} trips={this.props.trips} currentUser={this.props.currentUser}/>} />
-                  <Route path="/signup" render={(routerProps)=> <Signup {...routerProps} handleSignUpSubmit={this.handleSignUpSubmit}/>} />
-                  <Route path="/login" render={()=> <Login  handleLogin={this.handleLogin}/>} />
-
-
-                  <Route path="/profile" render={(routerProps) => <Profile {...routerProps} currentUser={this.props.currentUser}/>}/>
-                  <Route disabled={vertical} onClick={this.handleAnimationChange('push', true)} path="/hotels" render={(routerProps) => <HotelsContainer {...routerProps} currentUser={this.props.currentUser}/>}/>
-                  <Route disabled={vertical} onClick={this.handleAnimationChange('push', true)} path="/restaurants" render={(routerProps) => <RestaurantsContainer {...routerProps} currentUser={this.props.currentUser}/>}/>
-                  <Route path="/checkout" render={(routerProps) => <Checkout {...routerProps} currentUser={this.props.currentUser}/>}/>
-
-
-                  <Route exact path="/" component={Home} />
-                </Switch>
-                {/* add activities and flights later */}
-              </Segment>
-            </Sidebar.Pusher>
-          </Sidebar.Pushable>
-        </Container>
         ):
 
         toReturn = (

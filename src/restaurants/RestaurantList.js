@@ -31,7 +31,7 @@ class RestaurantList extends Component {
 
   render(){
     let restaurants
-    this.props.restaurants ? restaurants = this.props.restaurants.map((restaurant) => < Restaurant key={restaurant.restaurant.id} restaurant={restaurant.restaurant} trip={this.props.currentTrip} />) : restaurants = []
+    this.props.restaurants ? restaurants = this.props.restaurants.map((restaurant) => < Restaurant key={restaurant.id} restaurant={restaurant} trip={this.props.currentTrip} />) : restaurants = []
     return(
       <List selection className="RestaurantList" size="big" style={{float: 'left'}} divided>
         {restaurants}

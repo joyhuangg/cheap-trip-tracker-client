@@ -36,17 +36,20 @@ class SelectedRestaurants extends Component {
     // for each restaurant in selected restaurants...
     this.props.selectedRestaurants.forEach((selectedRestaurant) => {
       // we want to find or create the selected restaurant
+
+      let cuisines;
+      selectedRestaurant.categories.forEach((category) => cuisines += (category.title + ', '))
       let restaurant = {
-        image_url:selectedRestaurant.photos_url,
+        image_url:selectedRestaurant.image_url,
         name:selectedRestaurant.name,
         url:selectedRestaurant.url,
-        rating:parseFloat(selectedRestaurant.user_rating.aggregate_rating),
-        longitude:parseFloat(selectedRestaurant.location.longitude),
-        latitude:parseFloat(selectedRestaurant.location.latitude),
-        address:selectedRestaurant.location.address,
-        price:selectedRestaurant.average_cost_for_two/2
+        rating:parseFloat(selectedRestaurant.rating),
+        longitude:parseFloat(selectedRestaurant.coordinates.longitude),
+        latitude:parseFloat(selectedRestaurant.coordinates.latitude),
+        address:selectedRestaurant.location.display_address,
+        // price:selectedRestaurant.average_cost_for_two/2,
+        cuisines: cuisines
       }
-      // NOT SAVING MULTIPLE RESTAURANTS
       this.props.postNewRestaurant(restaurant)
       .then((action) => {
         let tripObj

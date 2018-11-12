@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RestaurantList from './RestaurantList'
 import SelectedRestaurants from './SelectedRestaurants'
-import { Dimmer, Loader, Image, Segment, Header, Grid } from 'semantic-ui-react'
+import { Dimmer, Loader, Image, Segment, Header, Grid, Container } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import VerticalSidebar from '../VerticalSidebar'
 

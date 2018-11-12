@@ -47,7 +47,9 @@ class Hotel extends Component {
       latitude: this.props.hotel.location.latitude,
       address: `${this.props.hotel.address.line1} ${this.props.hotel.address.city}, ${this.props.hotel.address.country} ${this.props.hotel.address.postal_code}`,
       price: parseFloat(this.props.hotel.total_price.amount),
-      property_name: this.props.hotel.property_name
+      property_name: this.props.hotel.property_name,
+      rating: this.props.hotel.awards? this.props.hotel.awards[0].rating : 0,
+      image_url: 'http://2.bp.blogspot.com/-w0CSWr6g9_A/VBp_wBsXK2I/AAAAAAAAAA4/OBQam61kTds/s1600/2415Mirage-Las-Vegas-3-thumb-550x366.jpg'
     }
     this.props.postNewHotel(hotel)
       //alter longitdue/latitude of trip to be the long/lat of hotel
@@ -75,6 +77,7 @@ class Hotel extends Component {
     toReturn = (
       <List.Item onClick={this.handleClick}>
         <Icon small name='hotel' />
+        <Image src='http://2.bp.blogspot.com/-w0CSWr6g9_A/VBp_wBsXK2I/AAAAAAAAAA4/OBQam61kTds/s1600/2415Mirage-Las-Vegas-3-thumb-550x366.jpg' size="small" />
         <List.Content>
           <List.Header as='a'>{this.props.hotel.property_name}<Button onClick={this.handleSelect} floated="right">Add</Button></List.Header>
           <List.Description>

@@ -102,7 +102,7 @@ class SelectedHotel extends Component {
           />
       )
     }
-    else if( this.props.currentTrip.hotels[0]){
+    else if( this.props.currentTrip.hotels.length > 0){
       const content =       <List.Item onClick={this.handleClick}>
               <Icon small name='hotel' />
               <List.Content>

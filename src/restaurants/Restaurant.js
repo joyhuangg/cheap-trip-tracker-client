@@ -39,19 +39,21 @@ class Restaurant extends Component{
   }
 
   render(){
+    let categories = ''
+    this.props.restaurant.categories ? this.props.restaurant.categories.forEach((category) => categories += category.title + ', ') : categories = this.props.restaurant.categories
     return(
 
       <List.Item onClick={this.handleClick}>
         {/* <Image avatar src='/images/avatar/small/rachel.png' /> */}
         <Icon small name='food' />
-        {/* <Image src={this.props.restaurant.photos_url} size='small' /> */}
+        <Image src={this.props.restaurant.image_url} size='small' />
         <List.Content>
           <List.Header as='a'>{this.props.restaurant.name}<Button onClick={this.handleSelect} floated="right">Add</Button></List.Header>
           <List.Description>
             Rating: {this.props.restaurant.user_rating? this.props.restaurant.user_rating.aggregate_rating : this.props.restaurant.rating}
             {this.state.clicked ? (<div>
-              Address: {this.props.restaurant.location.address}
-              Cuisines: {this.props.restaurant.cuisines}
+              Address: {this.props.restaurant.location.display_address}
+              <br/>Cuisines: {this.props.restaurant.categories.join(', ')}
 
             </div>) :null}
           </List.Description>

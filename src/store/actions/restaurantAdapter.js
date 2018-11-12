@@ -3,11 +3,11 @@ import {ZOMATO_API_KEY} from "../../.keys"
 export const getRestaurants = (trip) => {
     const long = trip.longitude;
     const lat = trip.latitude;
-    return fetch(`https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${long}&sort=real_distance&order=asc`, {
+    return fetch(`http://localhost:3000/api/v1/yelp_restaurants?lat=${lat}&lon=${long}`, {
       headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        'user-key': `${ZOMATO_API_KEY}`,
+        Authorization: localStorage.getItem("token")
       }
     })
     .then(r => r.json())

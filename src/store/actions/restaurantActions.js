@@ -7,7 +7,7 @@ export const loadRestaurants = (trip) => {
     trip.trip ? tripObj = trip.trip : tripObj = trip
     return getRestaurants(tripObj)
     .then(allRestaurants => {
-      dispatch({type: "LOAD_RESTAURANTS", payload: allRestaurants.restaurants})})
+      dispatch({type: "LOAD_RESTAURANTS", payload: allRestaurants.businesses})})
   }
 }
 
