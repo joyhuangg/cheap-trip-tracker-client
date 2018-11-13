@@ -12,7 +12,7 @@ class RestaurantsContainer extends Component {
       return(
         <div className="scroll-container">
           <VerticalSidebar animation={'push'} direction={'left'} visible={true} id={this.props.currentTrip.id}/>
-          <Header textAlign='center'>Select Cheap Eats!</Header>
+          <Header textAlign='center'>SELECT RESTAURANTS</Header>
           < SelectedRestaurants />
           < RestaurantList />
         </div>
@@ -20,7 +20,7 @@ class RestaurantsContainer extends Component {
     }
     else{
       return(
-        <Segment>
+        <Segment className="tall-container">
           <Dimmer active>
             <Loader />
           </Dimmer>

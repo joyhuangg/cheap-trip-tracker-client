@@ -22,6 +22,9 @@ const tripReducer = (state = initialState, action) =>{
       return {...state, currentTrip: {...state.currentTrip, hotels:[]}}
     case  "ADD_RESTAURANT_TO_TRIP":
       return {...state, currentTrip: {...state.currentTrip, restaurants:[...state.currentTrip.restaurants, action.payload]}}
+    case  "DELETE_RESTAURANT_FROM_TRIP":
+      let newRestaurants = state.currentTrip.restaurants.filter(((restaurant) => restaurant.id !== action.payload.id))
+      return {...state, currentTrip: {...state.currentTrip, restaurants:newRestaurants}}
     case "FINALIZE_TRIP":
       newTrips = [...state.trips, action.payload]
       return {currentTrip:null, trips: newTrips}

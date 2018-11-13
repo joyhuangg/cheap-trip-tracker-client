@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Restaurant from './Restaurant'
 import { connect } from 'react-redux'
 import { loadRestaurants } from '../store/actions/restaurantActions'
-import { List, Image, Segment } from 'semantic-ui-react'
+import { List, Image, Segment, Dimmer, Loader } from 'semantic-ui-react'
 
 
 // TO DO: follow example of restaurants to create a list of restaurants, use yelp api
@@ -30,14 +30,45 @@ class RestaurantList extends Component {
   }
 
   render(){
-    let restaurants
-    this.props.restaurants ? restaurants = this.props.restaurants.map((restaurant) => < Restaurant key={restaurant.id} restaurant={restaurant} trip={this.props.currentTrip} />) : restaurants = []
+    let restaurants = []
+    if (this.props.restaurants){
+      restaurants = this.props.restaurants.map((restaurantObj) => {
+        let cuisines = '';
+        restaurantObj.categories.forEach((category) => cuisines += (category.title + ', '))
+        let restaurant = {
+          image_url:restaurantObj.image_url,
+          name:restaurantObj.name,
+          url:restaurantObj.url,
+          rating:parseFloat(restaurantObj.rating),
+          longitude:parseFloat(restaurantObj.coordinates.longitude),
+          latitude:parseFloat(restaurantObj.coordinates.latitude),
+          address:restaurantObj.location.display_address,
+          yelp_id: restaurantObj.id,
+          // price:restaurantObj.average_cost_for_two/2,
+          cuisines: cuisines
+        }
+
+        return (< Restaurant key={restaurant.yelp_id} restaurant={restaurant} trip={this.props.currentTrip} />)
+
+    })
     return(
       <List selection className="RestaurantList" size="big" style={{float: 'left'}} divided>
         {restaurants}
       </List>
     )
   }
+  else{
+    return(
+      <Segment className="tall-container">
+        <Dimmer active>
+          <Loader />
+        </Dimmer>
+
+        <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+      </Segment>
+    )
+  }
+}
 }
 
 const mapStateToProps = (state) => {

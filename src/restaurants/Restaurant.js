@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {selectRestaurant, removeRestaurant} from '../store/actions/restaurantActions'
-import { List, Image, Icon, Button } from 'semantic-ui-react'
+import { List, Image, Icon, Button, Rating } from 'semantic-ui-react'
+import { postTripRestaurant } from '../store/actions/restaurantAdapter'
+import {deleteRestaurantFromTrip} from '../store/actions/tripActions'
+
 // t.string :image_url
 // t.string :name
 // t.string :url
@@ -17,8 +20,10 @@ class Restaurant extends Component{
   }
 
   handleClick = (e) => {
+    if (e.target.type !== 'submit'){
+      this.setState({clicked: !this.state.clicked})
+    }
 
-    this.setState({clicked: !this.state.clicked})
     // add this fucntaionlity to Hotel
     // if (!this.props.selectedRestaurants.includes(this.props.restaurant)){
     //   this.props.selectRestaurant(this.props.restaurant)
@@ -30,11 +35,33 @@ class Restaurant extends Component{
 
 
   handleSelect = (e) => {
-    if (!this.props.selectedRestaurants.includes(this.props.restaurant)){
+    if (!this.props.selectedRestaurants.find((restaurant) => restaurant.yelp_id === this.props.restaurant.yelp_id)){
+      // let cuisines;
+      // this.props.restaurant.categories.forEach((category) => cuisines += (category.title + ', '))
+      // let restaurant = {
+      //   image_url:this.props.restaurant.image_url,
+      //   name:this.props.restaurant.name,
+      //   url:this.props.restaurant.url,
+      //   rating:parseFloat(this.props.restaurant.rating),
+      //   longitude:parseFloat(this.props.restaurant.coordinates.longitude),
+      //   latitude:parseFloat(this.props.restaurant.coordinates.latitude),
+      //   address:this.props.restaurant.location.display_address,
+      //   // price:this.props.restaurant.average_cost_for_two/2,
+      //   cuisines: cuisines
+      // }
       this.props.selectRestaurant(this.props.restaurant)
+      .then((action) => {
+        let tripObj
+        //save restaurant_trip association in the backend
+        this.props.currentTrip.trip ? tripObj = this.props.currentTrip.trip : tripObj = this.props.currentTrip
+        postTripRestaurant(tripObj.id, action.payload.id)
+      })
     }
-    else if (e.target.parentElement.className === "SelectedRestaurants"){
-      this.props.removeRestaurant(this.props.restaurant)
+    else if (e.target.innerHTML === "Delete"){
+      let tripObj
+      //save restaurant_trip association in the backend
+      this.props.currentTrip.trip ? tripObj = this.props.currentTrip.trip : tripObj = this.props.currentTrip
+      this.props.deleteRestaurantFromTrip(tripObj, this.props.restaurant)
     }
   }
 
@@ -44,18 +71,18 @@ class Restaurant extends Component{
     return(
 
       <List.Item onClick={this.handleClick}>
-        {/* <Image avatar src='/images/avatar/small/rachel.png' /> */}
-        <Icon small name='food' />
-        <Image src={this.props.restaurant.image_url} size='small' />
+        <Image className="pic" src={this.props.restaurant.image_url}  />
         <List.Content>
-          <List.Header as='a'>{this.props.restaurant.name}<Button onClick={this.handleSelect} floated="right">Add</Button></List.Header>
+          <List.Header as='a'>{this.props.restaurant.name}</List.Header>
           <List.Description>
-            Rating: {this.props.restaurant.user_rating? this.props.restaurant.user_rating.aggregate_rating : this.props.restaurant.rating}
+            <Rating icon='star' defaultRating={this.props.restaurant.rating} maxRating={5} />
+            {/* Rating: {this.props.restaurant.user_rating? this.props.restaurant.rating : this.props.restaurant.rating} */}
             {this.state.clicked ? (<div>
-              Address: {this.props.restaurant.location.display_address}
-              <br/>Cuisines: {this.props.restaurant.categories.join(', ')}
+              Address: {this.props.restaurant.address}
+              <br/>Cuisines: {this.props.restaurant.cuisines}
 
             </div>) :null}
+            <br/><Button onClick={this.handleSelect}>{this.props.selectedRestaurants.includes(this.props.restaurant) ? `Delete` : `Add`}</Button>
           </List.Description>
         </List.Content>
       </List.Item>
@@ -69,7 +96,8 @@ class Restaurant extends Component{
 }
 
 const mapStateToProps = (state) => {
-  return {selectedRestaurants: state.restaurants.selectedRestaurants}
+  return {selectedRestaurants: state.trips.currentTrip.restaurants,
+  currentTrip: state.trips.currentTrip}
 }
 
-export default connect(mapStateToProps, {selectRestaurant, removeRestaurant})(Restaurant)
+export default connect(mapStateToProps, {selectRestaurant, removeRestaurant, deleteRestaurantFromTrip})(Restaurant)

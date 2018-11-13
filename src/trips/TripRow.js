@@ -3,12 +3,26 @@ import { Header, Table, Rating, Button } from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import {loadTrip, removeTrip} from '../store/actions/tripActions'
-
-
+import DeleteModal from './DeleteModal'
+import TripModal from './TripModal'
 class TripRow extends Component {
 
   state = {
-    show: true
+    show: true,
+    openDelete: false,
+    openShow: false,
+  }
+
+  closeDelete = (e) => {
+    if (e.target.name === "Yes"){
+      this.props.removeTrip(this.props.trip, this.props.currentUser)
+      .then(() => {this.setState({show: false})})
+    }
+    this.setState({ openDelete: false })
+  }
+
+  closeShow = (e) => {
+    this.setState({openShow: false})
   }
 
 
@@ -17,16 +31,14 @@ class TripRow extends Component {
       this.props.loadTrip(this.props.trip)
       .then(() => this.props.history.push(`/trips/${this.props.trip.id}`))
     }
+    // TO DO: make show a modal of information
     else if (e.target.name === "Show"){
       this.props.loadTrip(this.props.trip)
-      .then(() => this.props.history.push(`/trips/${this.props.trip.id}`))
-
+      .then(() => this.setState({openShow: true}))
 
     }
     else if (e.target.name === "Delete"){
-      console.log('delete', this.props.trip)
-      this.props.removeTrip(this.props.trip, this.props.currentUser)
-      .then(() => {this.setState({show: false})})
+      this.setState({openDelete: true})
     }
 
   }
@@ -38,30 +50,33 @@ class TripRow extends Component {
 // ToDO: if == current trip indicate it some how
     if (this.state.show){
       return(
-        <Table.Row>
-          <Table.Cell>
-            <Header as='h2' textAlign='center'>
-              {this.props.trip.name}
-            </Header>
-          </Table.Cell>
-          <Table.Cell singleLine>{this.props.trip.location}</Table.Cell>
-          <Table.Cell>
-            {start_date_converted}<br/>{end_date_converted}
-          </Table.Cell>
-          {/* <Table.Cell>
-            {this.props.trip.num_ppl}
-          </Table.Cell> */}
-          <Table.Cell>
-            {this.props.trip.price}
-          </Table.Cell>
-          <Table.Cell>
-            <Button.Group>
-              <Button onClick={this.buttonAction} name="Edit">Edit</Button>
-              <Button onClick={this.buttonAction} name="Show">Show</Button>
-              <Button onClick={this.buttonAction} name="Delete" >Delete</Button>
-            </Button.Group>
-          </Table.Cell>
-        </Table.Row>
+        <React.Fragment>
+          <Table.Row>
+            {/* <Table.Cell>
+              <Header as='h2' textalign='center'>
+                {this.props.trip.name}
+              </Header>
+            </Table.Cell> */}
+            <Table.Cell singleLine>{this.props.trip.location}</Table.Cell>
+            <Table.Cell singleLine>
+              {start_date_converted}<br/>{end_date_converted}
+            </Table.Cell>
+            <Table.Cell singleLine>
+              ${this.props.trip.price}
+            </Table.Cell>
+            <Table.Cell singleLine textAlign='left'>
+              <Button.Group>
+                <Button onClick={this.buttonAction} basic color='blue' name="Edit">Edit</Button>
+                <Button onClick={this.buttonAction} basic color='green' name="Show">Show</Button>
+                <Button onClick={this.buttonAction} basic color='red' name="Delete" >Delete</Button>
+              </Button.Group>
+            </Table.Cell>
+          </Table.Row>
+          <DeleteModal close={this.closeDelete}  open={this.state.openDelete}/>
+          <TripModal trip={this.props.trip} close={this.closeShow} open={this.state.openShow}/>
+        </React.Fragment>
+
+
       )
     }
     else{

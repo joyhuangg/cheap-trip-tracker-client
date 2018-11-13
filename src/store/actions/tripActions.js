@@ -1,5 +1,6 @@
 import {getTrips, getTrip, postTrip, deleteTrip, updateTrip} from './tripAdapter'
 import {patchCurrentUser} from './userActions'
+import {deleteTripRestaurant} from './restaurantAdapter'
 /*-------------THUNK CREATORS--------------*/
 export const updateMyTrip = (trip) => {
   return (dispatch) => {
@@ -71,6 +72,13 @@ export const removeTrips = () => {
 
 export const deleteHotelFromTrip = () => {
   return {type:'DELETE_HOTEL_FROM_TRIP'}
+}
+
+export const deleteRestaurantFromTrip = (trip, restaurant) => {
+  return (dispatch) => {
+    return deleteTripRestaurant(trip.id, restaurant.id)
+    .then(() => dispatch({type:'DELETE_RESTAURANT_FROM_TRIP', payload:restaurant}))
+  }
 }
 
 const deleteSelectedTrip = (trip) => ({type: 'DELETE_TRIP', payload: trip})

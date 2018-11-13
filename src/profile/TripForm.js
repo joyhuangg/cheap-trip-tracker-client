@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Header, Icon } from 'semantic-ui-react'
 import {MAPBOX_API_KEY} from "../.keys"
 import {postNewTrip} from '../store/actions/tripActions'
 import {patchCurrentUser} from '../store/actions/userActions'
@@ -95,14 +95,16 @@ class TripForm extends Component {
 
   render(){
 
-    if (!this.props.currentUser.current_trip_id){
       return(
-        <Form className="center" onSubmit={this.handleSubmit}>
-          <label>Create a Trip</label>
+        <Form  onSubmit={this.handleSubmit}>
+          <Header as='h1' icon textAlign='center'>
+            {/* <Icon name='plane' circular /> */}
+            <Header.Content>Plan a Trip</Header.Content>
+          </Header>
           <Form.Group>
             <Form.Field>
               <label>Destination</label>
-              <input placeholder='Destination' name="location" onChange={this.handleChange}/>
+              <input placeholder='i.e. Berlin, Las Vegas' name="location" onChange={this.handleChange}/>
             </Form.Field>
             <Form.Field>
               <label>Start Date</label>
@@ -114,17 +116,16 @@ class TripForm extends Component {
             </Form.Field>
             <Form.Field>
               <label>Number of People</label>
-              <input type="number" placeholder='Number of People' name="num_ppl" onChange={this.handleChange}/>
+              <input type="number" placeholder='How Many?' name="num_ppl" onChange={this.handleChange}/>
             </Form.Field>
-            <Button type='submit'>Submit</Button>
+            <Form.Field>
+            <Button circular icon='plane' color='violet' type='submit'></Button>
+            </Form.Field>
           </Form.Group>
 
         </Form>
       )
-    }
-    else{
-      alert("TRIP IN PROGRESS ALREADY")
-    }
+
 
   }
 }

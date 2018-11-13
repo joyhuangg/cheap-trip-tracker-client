@@ -116,9 +116,7 @@ class Navbar extends Component {
               <Link to="/" disabled={vertical} onClick={this.handleAnimationChange('push', false)} className="logo">Cheap Trip Tracker</Link>
             </Menu.Item>
             <Menu.Item >
-              {this.props.currentTrip ?
-                <Link to="/profile" disabled={vertical} onClick={this.handleAnimationChange('push', true)}>Edit Current Trip</Link>
-                :<Link to="/profile" disabled={vertical} onClick={this.handleAnimationChange('push', true)}>New Trip</Link>}
+              <Link to="/profile" disabled={vertical} onClick={this.handleAnimationChange('push', true)}>New Trip</Link>
             </Menu.Item>
             <Menu.Item >
               <Link disabled={vertical} onClick={this.handleAnimationChange('push', false)}to="/trips">My Saved Trips</Link>

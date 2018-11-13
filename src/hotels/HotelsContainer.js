@@ -15,7 +15,7 @@ class HotelsContainer extends Component {
       return(
         <div className="scroll-container">
           <VerticalSidebar animation={'push'} direction={'left'} visible={true} id={this.props.currentTrip.id}/>
-          <Header textAlign='center'>Pick a hotel to stay at!</Header>
+          <Header textAlign='center'>PICK A HOTEL TO STAY AT</Header>
           < SelectedHotel />
           < HotelList />
 
@@ -24,7 +24,7 @@ class HotelsContainer extends Component {
     }
     else{
       return(
-        <Segment>
+        <Segment className="tall-container">
           <Dimmer active>
             <Loader />
           </Dimmer>

@@ -37,13 +37,15 @@ class TripDetail extends Component{
       let end_date = new Date(this.props.trip.end_date)
       let end_date_converted = (end_date.getMonth() + 1) + '/' + end_date.getDate() + '/' +  end_date.getFullYear()
       // debugger
-      let restaurants = this.props.trip.restaurants.map((restaurant) => < Restaurant key={restaurant.id} restaurant={restaurant}/>)
+      let restaurants
+      this.props.trip.restaurants ? restaurants = this.props.trip.restaurants.map((restaurant) => < Restaurant key={restaurant.id} restaurant={restaurant}/>) : restaurants =  []
       // let activites
+
       return(
         <React.Fragment>
-          <VerticalSidebar animation={animation} direction={direction} visible={visible} id={this.props.currentTrip.id}/>
           <div className="trip-detail-container">
-            <h1>CURRENT TRIP'S DETAIL <Button floated="right" onClick={this.show('tiny')}>Start New Trip</Button></h1>
+            {this.props.history.location.pathname === '/trips' ? null : <VerticalSidebar animation={animation} direction={direction} visible={visible} id={this.props.currentTrip.id}/>}
+            <h1>CURRENT TRIP'S DETAIL</h1>
             <Divider />
             {this.props.trip.name ? <h2>{this.props.trip.name}</h2> : null}
             <h2>Destination: {this.props.trip.location}</h2>
@@ -51,7 +53,7 @@ class TripDetail extends Component{
             <h2>End date: {end_date_converted}</h2>
             <h2>Party #: {this.props.trip.num_ppl}</h2>
             {this.props.trip.price ? <h2>Price: ${this.props.trip.price}</h2> : null}
-            {this.props.trip.hotels.length > 0 ? <div>
+            {this.props.trip.hotels && this.props.trip.hotels.length > 0 ? <div>
 
               <Divider />
               {/* maybe make this into a HotelDetail component? */}

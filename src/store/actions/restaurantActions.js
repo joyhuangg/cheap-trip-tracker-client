@@ -11,16 +11,16 @@ export const loadRestaurants = (trip) => {
   }
 }
 
-export const postNewRestaurant = (restaurant) => {
+export const selectRestaurant = (restaurant) => {
   return (dispatch) => {
     return postRestaurant(restaurant)
     .then(restaurant => dispatch({type: "ADD_RESTAURANT_TO_TRIP", payload:restaurant}))
   }
 }
 
-export const selectRestaurant = (restaurant) => {
-  return {type: "SELECT_RESTAURANT", payload: restaurant}
-}
+// export const selectRestaurant = (restaurant) => {
+//   return {type: "SELECT_RESTAURANT", payload: restaurant}
+// }
 
 export const removeRestaurant = (restaurant) => {
   return {type: "REMOVE_RESTAURANT", payload: restaurant}

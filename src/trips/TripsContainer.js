@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import TripTable from './TripTable'
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
+import { Dimmer, Loader, Image, Segment, Header } from 'semantic-ui-react'
 
 
 class TripsContainer extends Component {
   render(){
-    // to do: have edit, delete, show button
     let loggedIn = !!this.props.currentUser
     if (loggedIn){
       return(
-        <div className="tall-container">
-          <h1> My Saved Trips </h1>
+        <div className="tall-container" >
+          <Header style={{ margin: '1em' }} as='h2' textAlign='center'>Saved Trips</Header>
           <TripTable currentUser={this.props.currentUser} />
         </div>
       )
     }
     else{
       return(
-        <Segment>
+        <Segment className="tall-container">
           <Dimmer active>
             <Loader />
           </Dimmer>

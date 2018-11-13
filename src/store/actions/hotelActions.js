@@ -11,16 +11,16 @@ export const loadHotels = (trip) => {
   }
 }
 
-export const postNewHotel = (hotel) => {
+export const selectHotel = (hotel) => {
   return (dispatch) => {
     return postHotel(hotel)
     .then(hotel => dispatch({type: "ADD_HOTEL_TO_TRIP", payload:hotel}))
   }
 }
 
-export const selectHotel = (hotel) => {
-  return {type: "SELECT_HOTEL", payload: hotel}
-}
+// export const selectHotel = (hotel) => {
+//   return {type: "SELECT_HOTEL", payload: hotel}
+// }
 
 export const removeHotels = () => {
   return {type: 'REMOVE_HOTELS'}

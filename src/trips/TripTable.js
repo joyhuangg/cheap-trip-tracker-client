@@ -9,13 +9,12 @@ class TripTable extends Component {
 
   render(){
 
-    let trips = this.props.currentUser.trips.map((trip) => < TripRow key ={trip.id} trip={trip}/>)
+    let trips = this.props.trips.map((trip) => < TripRow key ={trip.id} trip={trip}/>)
     return(
-        // <TripRow/>
-        <Table celled  >
+        <Table id='trip-table' compact celled textAlign='center' >
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell singleLine>Trip</Table.HeaderCell>
+              {/* <Table.HeaderCell singleLine>Trip</Table.HeaderCell> */}
               <Table.HeaderCell>Location</Table.HeaderCell>
               <Table.HeaderCell>Dates</Table.HeaderCell>
               <Table.HeaderCell>Price</Table.HeaderCell>
@@ -24,7 +23,7 @@ class TripTable extends Component {
           </Table.Header>
 
           <Table.Body>
-            {trips}
+            {trips.length > 0 ? trips : <Table.Row>Start by planning a trip!</Table.Row>}
           </Table.Body>
         </Table>
     )
@@ -33,7 +32,7 @@ class TripTable extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    trips: state.trips.trips
+    trips: state.currentUser.currentUser.trips
   }
 }
 

@@ -4,53 +4,42 @@ import {Segment, Container, Grid, Header, List, Divider, Image} from 'semantic-u
 const Footer = () => {
   return(
 
-            <Segment inverted style={{ margin: '5em 0em 0em', padding: '5em 0em' }} vertical>
+            <Segment inverted style={{ margin: '1em 0em 0em', padding: '1em 1em' }} vertical>
               <Container textAlign='center'>
                 <Grid columns={4} divided stackable inverted>
                   <Grid.Row>
                     <Grid.Column>
-                      <Header inverted as='h4' content='Group 1' />
-                      <List link inverted>
-                        <List.Item as='a'>Link One</List.Item>
-                        <List.Item as='a'>Link Two</List.Item>
-                        <List.Item as='a'>Link Three</List.Item>
-                        <List.Item as='a'>Link Four</List.Item>
-                      </List>
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Header inverted as='h4' content='Group 2' />
-                      <List link inverted>
-                        <List.Item as='a'>Link One</List.Item>
-                        <List.Item as='a'>Link Two</List.Item>
-                        <List.Item as='a'>Link Three</List.Item>
-                        <List.Item as='a'>Link Four</List.Item>
-                      </List>
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Header inverted as='h4' content='Group 3' />
-                      <List link inverted>
-                        <List.Item as='a'>Link One</List.Item>
-                        <List.Item as='a'>Link Two</List.Item>
-                        <List.Item as='a'>Link Three</List.Item>
-                        <List.Item as='a'>Link Four</List.Item>
-                      </List>
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Header inverted as='h4' content='Footer Header' />
+                      <Header inverted as='h4' content='Cheap Trip Tracker' />
                       <p>
-                        Extra space for a call to action inside the footer that could help re-engage
-                        users.
+                        Plan dirt-cheap trips -- Comparing custom made travel packages
+                        for ease of planning before commitment.
+                      </p>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Header inverted as='h4' content='Hotels' />
+                      <p>
+                        Choose from plenty of budget hotels to save yourself
+                        from breaking the bank while you're out adventuring!
+                      </p>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Header inverted as='h4' content='Restaurants' />
+                      <p>
+                        Select cheap 1 dollar sign restaurants to try the local cuisine
+                        and save your must eat places in one location.
+                      </p>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Header inverted as='h4' content='Activities & Flights' />
+                      <p>
+                        Coming Soon!
                       </p>
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
                 <Divider inverted section />
-                <Image src='/logo.png' centered size='mini' />
                 <List horizontal inverted divided link size='small'>
-                  <List.Item as='a' href='#'>
-                    Site Map
-                  </List.Item>
-                  <List.Item as='a' href='#'>
+                  <List.Item as='a' href='joyhuangg@gmail.com'>
                     Contact Us
                   </List.Item>
                   <List.Item as='a' href='#'>

@@ -19,7 +19,7 @@ import PropTypes from 'prop-types'
       Current Trip Details
     </Menu.Item>
     <Menu.Item as={Link} to="/hotels">
-      <Icon name='home' />
+      <Icon name='hotel' />
       Hotels
     </Menu.Item>
     <Menu.Item as={Link} to="/restaurants">
