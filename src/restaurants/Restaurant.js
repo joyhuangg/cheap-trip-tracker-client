@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {selectRestaurant, removeRestaurant} from '../store/actions/restaurantActions'
-import { List, Image, Icon, Button, Rating } from 'semantic-ui-react'
+import { Image, Icon, Button, Rating, Grid, Card } from 'semantic-ui-react'
 import { postTripRestaurant } from '../store/actions/restaurantAdapter'
 import {deleteRestaurantFromTrip} from '../store/actions/tripActions'
 
@@ -16,7 +16,12 @@ import {deleteRestaurantFromTrip} from '../store/actions/tripActions'
 class Restaurant extends Component{
 
   state = {
-    clicked: false
+    clicked: false,
+    selected: false
+  }
+
+  componentDidMount(){
+    this.setState({selected: !!this.props.selectedRestaurants.find((restaurant) => restaurant.yelp_id === this.props.restaurant.yelp_id)})
   }
 
   handleClick = (e) => {
@@ -34,6 +39,8 @@ class Restaurant extends Component{
   }
 
 
+
+ // TODO: add disabled and change text to ADDED
   handleSelect = (e) => {
     if (!this.props.selectedRestaurants.find((restaurant) => restaurant.yelp_id === this.props.restaurant.yelp_id)){
       // let cuisines;
@@ -49,6 +56,7 @@ class Restaurant extends Component{
       //   // price:this.props.restaurant.average_cost_for_two/2,
       //   cuisines: cuisines
       // }
+      this.setState({selected:!this.state.selected})
       this.props.selectRestaurant(this.props.restaurant)
       .then((action) => {
         let tripObj
@@ -69,27 +77,26 @@ class Restaurant extends Component{
     let categories = ''
     this.props.restaurant.categories ? this.props.restaurant.categories.forEach((category) => categories += category.title + ', ') : categories = this.props.restaurant.categories
     return(
+      <Grid.Column onClick={this.handleClick}>
+        <Card>
+          <Image className="pic" src={this.props.restaurant.image_url}  />
+          <Card.Content>
+            <Card.Header>{this.props.restaurant.name}</Card.Header>
+            <Card.Description>
+              {/*  TO DO: add half stars*/}
+              <Rating icon='star' defaultRating={this.props.restaurant.rating} maxRating={5} />
+              {this.state.clicked ? (<div>
+                Address: {this.props.restaurant.address}
+                <br/>Cuisines: {this.props.restaurant.cuisines}
 
-      <List.Item onClick={this.handleClick}>
-        <Image className="pic" src={this.props.restaurant.image_url}  />
-        <List.Content>
-          <List.Header as='a'>{this.props.restaurant.name}</List.Header>
-          <List.Description>
-            <Rating icon='star' defaultRating={this.props.restaurant.rating} maxRating={5} />
-            {/* Rating: {this.props.restaurant.user_rating? this.props.restaurant.rating : this.props.restaurant.rating} */}
-            {this.state.clicked ? (<div>
-              Address: {this.props.restaurant.address}
-              <br/>Cuisines: {this.props.restaurant.cuisines}
+              </div>) :null}
+            </Card.Description>
+            {this.state.selected ? <Button disabled floated="right" size="mini" icon onClick={this.handleSelect}>Added</Button>
+            : <Button floated="right" size="mini" icon onClick={this.handleSelect}><Icon  name='plus'/></Button>}
+          </Card.Content>
+        </Card>
+      </Grid.Column>
 
-            </div>) :null}
-            <br/><Button onClick={this.handleSelect}>{this.props.selectedRestaurants.includes(this.props.restaurant) ? `Delete` : `Add`}</Button>
-          </List.Description>
-        </List.Content>
-      </List.Item>
-      //
-      // <div onClick={this.handleClick}>
-      //   {this.props.restaurant.name} - {this.props.restaurant.user_rating? this.props.restaurant.user_rating.aggregate_rating : this.props.restaurant.rating}
-      // </div>
     )
   }
 

@@ -1,28 +1,13 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import {Menu, Sidebar, Icon, Segment, Header, Image} from 'semantic-ui-react'
-import PropTypes from 'prop-types'
-import logo from './logo.svg';
+import {Menu,  Icon, } from 'semantic-ui-react'
 import './App.css';
-import {Route, Switch} from 'react-router-dom';
-import Home from './home/Home'
-import Footer from './Footer'
-import Signup from './signup/Signup'
-import Login from './login/Login'
-import Profile from './profile/Profile'
-import TripsContainer from './trips/TripsContainer'
-import HotelsContainer from './hotels/HotelsContainer'
-import RestaurantsContainer from './restaurants/RestaurantsContainer'
-import Checkout from './checkout/Checkout'
 import { connect } from 'react-redux'
-import {YELP_API_KEY, AMADEUS_API_KEY, MAPBOX_API_KEY} from "./.keys"
 import { getCurrentUser, removeUser} from './store'
 import {removeHotels } from './store/actions/hotelActions'
 import {removeTrips, loadMyTrips } from './store/actions/tripActions'
 import {removeRestaurants } from './store/actions/restaurantActions'
 import { loadTrip } from './store/actions/tripActions'
-import { Container } from 'semantic-ui-react'
-import TripDetail from './trips/TripDetail'
 
 
 class Navbar extends Component {
@@ -33,6 +18,7 @@ class Navbar extends Component {
     dimmed: false,
     visible: true,
   }
+
 
   componentDidMount(){
     // TO DO: load all the trips related to user
@@ -86,7 +72,6 @@ class Navbar extends Component {
 // changed this to just always be visible
   handleAnimationChange = (animation, show) => () => {
     this.setState({ animation, visible: show })
-    // this.setState({ animation, visible: !this.state.visible })
   }
 
 
@@ -96,42 +81,43 @@ class Navbar extends Component {
       this.props.removeHotels()
       this.props.removeRestaurants()
       this.props.removeTrips()
-      // TO DO: NEED TO REMOVE HOTELS, RESTUARANTS, TRIPS ETC.
-      console.log("logging out")
+      // NEED TO REMOVE HOTELS, RESTUARANTS, TRIPS ETC.
     }
 
   render(){
-    // debugger
     let loggedIn = !!this.props.currentUser
     let toReturn;
-    const { animation, dimmed, direction, visible } = this.state
+    const { direction } = this.state
     const vertical = direction === 'bottom' || direction === 'top'
-    let id
-    // debugger
 
     loggedIn ?
         toReturn = (
-          <Menu inverted>
-            <Menu.Item>
-              <Link to="/" disabled={vertical} onClick={this.handleAnimationChange('push', false)} className="logo">Cheap Trip Tracker</Link>
+          <Menu inverted style={{background: 'rgb(111, 128, 124)'}}>
+          {/*this.props.show && <Dropdown id='dropdown' text='Trip Details' icon='bars' item floating labeled button className='icon'  >
+               <Dropdown.Menu>
+                 <Dropdown.Item as={Link} to={`/trips/${id}`}><Icon name='road' />Current Trip Details</Dropdown.Item>
+                 <Dropdown.Item as={Link} to="/hotels"><Icon name='hotel' />Hotels</Dropdown.Item>
+                 <Dropdown.Item as={Link} to="/restaurants"><Icon name='food' />Restaurants</Dropdown.Item>
+                 <Dropdown.Item  as={Link} to="/"><Icon name='plane' />Flights</Dropdown.Item>
+                 <Dropdown.Item  as={Link} to="/"><Icon name='fly' />Activities</Dropdown.Item>
+               </Dropdown.Menu>
+             </Dropdown>*/}
+            <Menu.Item >
+              <Link disabled={vertical} onClick={this.handleAnimationChange('push', false)}to="/trips"> <Icon name ="folder open outline
+"/> My Saved Trips</Link>
             </Menu.Item>
             <Menu.Item >
-              <Link to="/profile" disabled={vertical} onClick={this.handleAnimationChange('push', true)}>New Trip</Link>
+              <Link to="/profile" disabled={vertical} onClick={this.handleAnimationChange('push', true)}><Icon name ="plus square outline
+"/> New Trip</Link>
             </Menu.Item>
-            <Menu.Item >
-              <Link disabled={vertical} onClick={this.handleAnimationChange('push', false)}to="/trips">My Saved Trips</Link>
-            </Menu.Item>
-            <Menu.Item >
-              <Link to="/" onClick={this.props.handleLogout}>Logout</Link>
+            <Menu.Item position="right" >
+              <Link to="/" onClick={this.props.handleLogout}>Logout <Icon name="sign out"/></Link>
             </Menu.Item>
           </Menu>
         ):
 
         toReturn = (
           <Menu inverted>
-            <Menu.Item>
-              <Link to="/" className="logo">Cheap Trip Tracker</Link>
-            </Menu.Item>
             <Menu.Item >
               <Link to="/login">Login</Link>
             </Menu.Item>
@@ -146,11 +132,13 @@ class Navbar extends Component {
 
 }
 
-const mapStateToProps = (state) => {
+const dontShow = ['/', '/trips', '/profile', '/login', '/signup' ]
+const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.currentUser.currentUser,
     trips: state.trips.trips,
-    currentTrip: state.trips.currentTrip
+    currentTrip: state.trips.currentTrip,
+    show: !dontShow.includes(ownProps.history.location.pathname),
   }
 }
 

@@ -5,6 +5,7 @@
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.4.1",
     "@mapbox/react-geocoder": "^2.5.0",
+    "lodash": "^4.17.11",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-geocoder-autocomplete": "^3.0.11",

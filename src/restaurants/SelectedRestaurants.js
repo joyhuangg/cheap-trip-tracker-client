@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Restaurant from './Restaurant'
+import RestaurantItem from './RestaurantItem'
 import {connect} from 'react-redux'
 import {Button, Modal, Icon, List} from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
@@ -78,23 +78,19 @@ class SelectedRestaurants extends Component {
   // }
 
   render(){
-    let restaurantCards = this.props.selectedRestaurants.map((restaurant) => < Restaurant key={restaurant.id} restaurant={restaurant} trip={this.props.currentTrip} />)
+    let restaurantItems = this.props.selectedRestaurants.map((restaurant) => < RestaurantItem key={restaurant.id} restaurant={restaurant} trip={this.props.currentTrip} />)
     return(
         <Modal open={this.state.open}
-          trigger={< Button attached="top" onClick={() => this.setState({open:true})}><Icon inverted circular color='teal' name='food' />See Selected Restaurants</Button>}
+          trigger={< Button id="center" onClick={() => this.setState({open:true})}><Icon inverted circular color='teal' name='food' />See Selected Restaurants</Button>}
           actions={[{ key: 'done', content: 'Done'}]}>
           <Modal.Header>
-            <div>Selected Restaurants <Button
-                content='X'
-                key='X'
-                positive='true'
-                float="right"
-                onClick={(e) =>(this.setState({open:false}))}
-              /></div>
+            {/* TODO: add number of restaurants in button (2 restaurants)  */}
+            <div>Selected Restaurants <Button floated='right' circular color='teal' icon onClick={() => this.setState({open:false})}><Icon inverted  name='angle double up' /></Button>
+            </div>
           </Modal.Header>
           <Modal.Content>
-            <List className="SelectedRestaurants" size="big" style={{float: 'left'}} divided>
-                  {restaurantCards}</List>
+            <List ordered className="SelectedRestaurants" size="big" style={{float: 'left', 'padding-bottom': '1em'}} divided>
+                  {restaurantItems}</List>
           </Modal.Content>
         </Modal>
     )

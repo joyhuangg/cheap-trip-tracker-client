@@ -4,8 +4,7 @@ import { connect} from 'react-redux'
 // import {} from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { Dimmer, Loader, Image } from 'semantic-ui-react'
-import { Grid, Menu, Segment, Button} from 'semantic-ui-react'
-import TripDetail from '../trips/TripDetail'
+import { Segment } from 'semantic-ui-react'
 
 class Profile extends Component {
 
@@ -25,20 +24,7 @@ class Profile extends Component {
     let toReturn
     if (loggedIn){
       let user;
-      // debugger
-      // if (this.props.currentUser.currentUser.user){
-      //   user = this.props.currentUser.currentUser.user
-      // }
-      // else if (this.props.currentUser.currentUser){
-      //   user = this.props.currentUser.currentUser
-      // }
-      // else{
-      //   user = this.props.currentUser
-      // }
-
-
-
-      // TOOOO MOTHERFUCKING FIX LATER WHY THE MOTHERFUCKING
+      // TODo IX LATER WHY
       // IS IT NESTING IT DIFFERENTLY FROM SIGN UP/LOGIN
       if (this.props.currentUser){
         user = this.props.currentUser
@@ -49,14 +35,9 @@ class Profile extends Component {
           }
         }
       }
-      // this.props.currentUser.currentUser.user ? user = this.props.currentUser.currentUser : user = this.props.currentUser.currentUser.user
-      const { activeItem } = this.state
       toReturn =
       (
         <div className="center-form">
-          {/* {user.current_trip_id?
-            (<TripDetail trip={this.props.currentTrip} />)
-            : (<TripForm currentUser={user} />)} */}
             <TripForm currentUser={user} />
         </div>
       )

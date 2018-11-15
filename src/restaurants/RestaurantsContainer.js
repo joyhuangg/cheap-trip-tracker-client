@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
 import RestaurantList from './RestaurantList'
 import SelectedRestaurants from './SelectedRestaurants'
-import { Dimmer, Loader, Image, Segment, Header, Grid, Container } from 'semantic-ui-react'
+import { Dimmer, Loader, Image, Segment, Header, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import VerticalSidebar from '../VerticalSidebar'
+import { Link } from 'react-router-dom'
 
 class RestaurantsContainer extends Component {
+
+
+
+
   render(){
     let loggedIn = !!this.props.currentUser
     if (loggedIn && this.props.currentTrip){
       return(
         <div className="scroll-container">
-          <VerticalSidebar animation={'push'} direction={'left'} visible={true} id={this.props.currentTrip.id}/>
-          <Header textAlign='center'>SELECT RESTAURANTS</Header>
+          <div className="nav">
+            <Link to={`/trips/${this.props.currentTrip.id}`}><span><Icon name='road' />Current Trip Details | </span></Link>
+            <Link to="/hotels"><span><Icon name='hotel' />Hotels | </span></Link>
+            <Link to="/restaurants"><span><Icon name='food' />Restaurants | </span></Link>
+            <Link to="/"><span><Icon name='plane' />Flights | </span></Link>
+            <Link to="/"><span><Icon name='fly' />Activities</span></Link>
+          </div>
+          {/* <VerticalSidebar animation={'push'} direction={'left'} visible={true} id={this.props.currentTrip.id}/> */}
+          <Header as="h1" id="apply-font" textAlign='center'>Restaurants in {this.props.currentTrip.location}</Header>
           < SelectedRestaurants />
           < RestaurantList />
         </div>
@@ -20,6 +31,7 @@ class RestaurantsContainer extends Component {
     }
     else{
       return(
+        <div>
         <Segment className="tall-container">
           <Dimmer active>
             <Loader />
@@ -27,6 +39,7 @@ class RestaurantsContainer extends Component {
 
           <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
         </Segment>
+        </div>
       )
     }
 
@@ -35,7 +48,8 @@ class RestaurantsContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {currentUser: state.currentUser.currentUser,
-          currentTrip: state.trips.currentTrip}
+          currentTrip: state.trips.currentTrip,
+          restaurants: state.restaurants.restaurants}
 }
 
 export default connect(mapStateToProps)(RestaurantsContainer)

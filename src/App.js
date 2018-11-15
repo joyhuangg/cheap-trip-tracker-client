@@ -20,7 +20,7 @@ import {removeHotels } from './store/actions/hotelActions'
 import {removeTrips, loadMyTrips } from './store/actions/tripActions'
 import {removeRestaurants } from './store/actions/restaurantActions'
 import { loadTrip } from './store/actions/tripActions'
-import { Container } from 'semantic-ui-react'
+import { Container , Segment} from 'semantic-ui-react'
 
 
 
@@ -71,7 +71,7 @@ class App extends Component {
   render() {
     return (
       // make this take up the whole width
-      <Container>
+      <Segment>
           <Navbar currentUser={this.props.currentUser} handleLogout={this.handleLogout}/>
           <Switch>
             <Route path ="/trips/:id" render={(routerProps) => <TripDetail {...routerProps} trip={this.props.currentTrip} currentUser={this.props.currentUser}/>}/>
@@ -94,7 +94,7 @@ class App extends Component {
         <footer>
           <Footer/>
         </footer>
-      </Container>
+      </Segment>
     );
   }
 }

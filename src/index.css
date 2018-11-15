@@ -6,9 +6,47 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #e5edeb !important;
+}
+
+#apply-font{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+div.ui.inverted.menu {
+  font-size: 18px;
+  background: #005e8b !important;
+}
+
+.nav {
+  /* width: 53%; */
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 0 auto;
+  padding: 1%;
+  /* padding-left: 25%; */
+  /* background-color:rgb(227, 255, 249); */
+
+}
+
+.nav2 {
+  /* width: 53%; */
+  /* border-radius: 5px; */
+  font-size: 16px;
+  margin: 0 auto;
+  padding: 1%;
+  padding-left: 25%;
+  /* background-color:rgb(227, 255, 249); */
+  background-image: url('https://aerovisioncanada.com/wp-content/uploads/2015/07/opera-background-light-blue.jpg');
+
+}
+span {
+  color: #005e8b;
 }

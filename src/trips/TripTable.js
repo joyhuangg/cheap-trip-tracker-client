@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TripRow from './TripRow'
 import { connect } from 'react-redux'
-import { Header, Table, Rating } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 
 
 class TripTable extends Component {
@@ -11,14 +11,14 @@ class TripTable extends Component {
 
     let trips = this.props.trips.map((trip) => < TripRow key ={trip.id} trip={trip}/>)
     return(
-        <Table id='trip-table' compact celled textAlign='center' >
+        <Table style={{width: '97%'}} id='trip-table' compact celled textAlign='center' >
           <Table.Header>
-            <Table.Row>
+            <Table.Row >
               {/* <Table.HeaderCell singleLine>Trip</Table.HeaderCell> */}
-              <Table.HeaderCell>Location</Table.HeaderCell>
-              <Table.HeaderCell>Dates</Table.HeaderCell>
-              <Table.HeaderCell>Price</Table.HeaderCell>
-              <Table.HeaderCell></Table.HeaderCell>
+              <Table.HeaderCell width={2}>Location</Table.HeaderCell>
+              <Table.HeaderCell width={2}>Dates</Table.HeaderCell>
+              <Table.HeaderCell width={2}>Price</Table.HeaderCell>
+              <Table.HeaderCell width={2}></Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Hotel from './Hotel'
 import { connect } from 'react-redux'
 import { loadHotels } from '../store/actions/hotelActions'
-import { List, Image, Segment } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
 
 // STRETCH GOAL: allow users to filter by rating, price, location
@@ -31,10 +31,29 @@ class HotelList extends Component {
   render(){
     let hotels
     this.props.hotels ? hotels = this.props.hotels.map((hotel) => < Hotel key={hotel.property_code} hotel={hotel} trip={this.props.currentTrip} />) : hotels = []
+    let i = 0;
+    let hotelRows = []
+    while (i < hotels.length){
+
+      let row =
+      <Grid.Row id="card-column">
+        <Grid.Column id="card-column">
+          {hotels[i]}
+        </Grid.Column>
+        <Grid.Column id="card-column">
+          {hotels[i+1]}
+        </Grid.Column>
+        <Grid.Column id="card-column">
+          {hotels[i+2]}
+        </Grid.Column>
+      </Grid.Row>
+      hotelRows.push(row)
+      i += 3;
+    }
     return(
-      <List  selection size="big" style={{float: 'left'}} divided relaxed>
-        {hotels}
-      </List>
+      <Grid style={{margin: '1em'}} columns='equal' selection>
+        {hotelRows}
+      </Grid>
     )
   }
 }

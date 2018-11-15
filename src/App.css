@@ -2,27 +2,55 @@
   text-align: center;
 }
 
+#dropdown>i{
+  padding: 1em;
+}
+
+.box{
+  /* background-color: white; */
+  /* border-radius: 5px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 0em 1em; */
+  /* padding-right: 1em; */
+}
+
 .pic{
-  width: 150px;
-  height: 100px;
+  width: 300px;
+  height: 250px;
 }
 
 .scroll-container{
   height: 100vh;
   overflow-y: scroll;
   overflow-x: hidden;
-  width: 85%;
-  margin-left: 150px;
+
+  text-align: center;
+  background-image: url(https://aerovisioncanada.com/wp-content/uploads/2015/07/opera-background-light-blue.jpg);
+
+  /* width: 85%;
+  margin-left: 150px; */
 }
 
 .trip-detail-container{
   height: 100vh;
   /* overflow-y: scroll; */
+  padding: 1em;
   overflow-x: hidden;
   /* width: 85%; */
-  margin-left: 150px;
+  /* margin-left: 150px; */
+  /* background-color:rgb(227, 255, 249); */
+  background-image: url('https://aerovisioncanada.com/wp-content/uploads/2015/07/opera-background-light-blue.jpg');
+
 }
 
+#trip-modal{
+  background-color:rgb(227, 255, 249);
+}
+
+#card-column{
+  padding: 0em;
+}
 #trip-table{
   table-layout:fixed;
   margin: 1em;
@@ -31,17 +59,20 @@
 .tall-container{
   height: 100vh;
   overflow-x: hidden;
-  background-image: url('https://www.journeymexico.com/wp-content/uploads/2013/06/mexico-luxury-beach-holidays-v2-op.jpg');
+  /* background-image: url('https://www.journeymexico.com/wp-content/uploads/2013/06/mexico-luxury-beach-holidays-v2-op.jpg'); */
   background-size: cover;
+  /* background-image: url('https://cdn.pixabay.com/photo/2017/09/16/16/09/sea-2755908__340.jpg'); */
   /* width: 85%; */
+  background-image: url('https://images.unsplash.com/photo-1519114056088-b877fe073a5e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=148b001f50f5029d6193578567d18eca&w=1000&q=80');
 
   display: flex;
   flex-direction: column;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+#App-logo {
+  /* animation: App-logo-spin infinite 20s linear; */
+  height: 20vmin;
+  width: 20vmin;
 }
 
 .App-header {
@@ -59,6 +90,11 @@
   color: #61dafb;
 }
 
+#center{
+  margin: 0 auto;
+  display: inline-block;
+}
+
 .center-form{
   /* margin: 0 auto;
   position: absolute;
@@ -67,8 +103,9 @@
   transform: translate(-50%, -50%); */
   height: 100vh;
   overflow-x: hidden;
-  background-image: url('https://www.journeymexico.com/wp-content/uploads/2013/06/mexico-luxury-beach-holidays-v2-op.jpg');
+  /* background-image: url('https://www.journeymexico.com/wp-content/uploads/2013/06/mexico-luxury-beach-holidays-v2-op.jpg'); */
   background-size: cover;
+  background-image: url('https://cdn.pixabay.com/photo/2017/09/16/16/09/sea-2755908__340.jpg');
 
 
   display: flex;

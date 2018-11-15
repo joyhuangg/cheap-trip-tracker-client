@@ -59,16 +59,16 @@ class TripRow extends Component {
             </Table.Cell> */}
             <Table.Cell singleLine>{this.props.trip.location}</Table.Cell>
             <Table.Cell singleLine>
-              {start_date_converted}<br/>{end_date_converted}
+              {start_date_converted} - {end_date_converted}
             </Table.Cell>
             <Table.Cell singleLine>
               ${this.props.trip.price}
             </Table.Cell>
-            <Table.Cell singleLine textAlign='left'>
+            <Table.Cell singleLine>
               <Button.Group>
-                <Button onClick={this.buttonAction} basic color='blue' name="Edit">Edit</Button>
+                <Button icon='edit' onClick={this.buttonAction} basic color='blue' name="Edit"></Button>
                 <Button onClick={this.buttonAction} basic color='green' name="Show">Show</Button>
-                <Button onClick={this.buttonAction} basic color='red' name="Delete" >Delete</Button>
+                <Button icon='trash alternate' onClick={this.buttonAction} basic color='red' name="Delete" ></Button>
               </Button.Group>
             </Table.Cell>
           </Table.Row>

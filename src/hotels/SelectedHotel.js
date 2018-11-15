@@ -43,7 +43,7 @@ class SelectedHotel extends Component {
             </List.Item>
       return(
           <Modal
-            trigger={< Button attached="top"><Icon inverted circular color='teal' name='home' />See Selected Hotel</Button>}
+            trigger={< Button id="center"><Icon inverted circular color='teal' name='home' />See Selected Hotel</Button>}
             header='Selected Hotel'
             content={content}
             actions={[<Button

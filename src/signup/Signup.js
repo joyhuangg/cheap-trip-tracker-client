@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form } from 'semantic-ui-react'
 import {createUser} from '../store'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 
 class Signup extends Component {

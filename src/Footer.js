@@ -4,7 +4,7 @@ import {Segment, Container, Grid, Header, List, Divider, Image} from 'semantic-u
 const Footer = () => {
   return(
 
-            <Segment inverted style={{ margin: '1em 0em 0em', padding: '1em 1em' }} vertical>
+            <Segment inverted style={{ margin: '1em 0em 0em', padding: '1em 1em', background: 'rgb(111, 128, 124)' }} vertical>
               <Container textAlign='center'>
                 <Grid columns={4} divided stackable inverted>
                   <Grid.Row>

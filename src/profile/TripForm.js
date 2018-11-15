@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Button, Form, Header, Icon } from 'semantic-ui-react'
+import { Button, Form, Header, Icon, Dropdown, Image } from 'semantic-ui-react'
 import {MAPBOX_API_KEY} from "../.keys"
 import {postNewTrip} from '../store/actions/tripActions'
 import {patchCurrentUser} from '../store/actions/userActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+// import logo.png
+import _ from 'lodash'
 // import {Geocoder} from 'react-geocoder-autocomplete';
 
 class TripForm extends Component {
@@ -13,11 +15,61 @@ class TripForm extends Component {
     location: "",
     start_date: "",
     end_date: "",
-    num_ppl: ""
+    num_ppl: "",
+    countryOptions: [],
   }
 
+  handleSearchChange = (e) => {
+    this.setState({ location: e.target.value})
+
+    setTimeout(() => {
+      this.setState({countryOptions: this.fetchOptions() })
+    }, 500)
+  }
+
+  fetchOptions = () => {
+      console.log(this.state.location)
+      if(this.state.location.length > 0){
+        const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+        const geocodingClient = mbxGeocoding({ accessToken: MAPBOX_API_KEY });
+        geocodingClient
+        .forwardGeocode({
+          query: this.state.location,
+          limit: 10,
+          autocomplete: true,
+          types: ['country', 'region', 'district', 'place']
+        })
+        .send()
+        .then(response => {
+          let newPlaces = []
+          if (response.body.features.length > 0){
+            response.body.features.forEach((place) => {
+              newPlaces.push({key: `${place.place_name}`, value: `${place.place_name}`, text: `${place.place_name}`})
+            })
+          }
+
+          // debugger
+
+          this.setState({countryOptions: newPlaces})
+          return newPlaces
+        })
+      }
+      else{
+        let arr = []
+        return arr
+      }
+  }
+
+
+// Debounce here, move, map search function here
   handleChange = (e) => {
-    this.setState({[e.target.name]: e.target.value})
+    if (e.target.className === 'search'){
+      this.setState({location: e.target.value}, this.setCountries)
+
+    }
+    else{
+      this.setState({[e.target.name]: e.target.value})
+    }
   }
 
   handleSubmit = (e) => {
@@ -25,8 +77,9 @@ class TripForm extends Component {
     const geocodingClient = mbxGeocoding({ accessToken: MAPBOX_API_KEY });
     geocodingClient
     .forwardGeocode({
-      query: this.state.location,
-      limit: 1
+      query: document.querySelector('#location div').innerHTML,
+      limit: 1,
+      autocomplete: true
     })
     .send()
     .then(response => {
@@ -40,7 +93,7 @@ class TripForm extends Component {
       else if (match.features.length > 0){
         let trip = {
           user_id: this.props.currentUser.id,
-          location: match.features[0].text,
+          location: match.features[0].place_name,
           start_date: this.state.start_date,
           end_date: this.state.end_date,
           num_ppl: parseInt(this.state.num_ppl),
@@ -68,54 +121,45 @@ class TripForm extends Component {
 
 
     e.preventDefault();
-    // this.props.loginUser(this.state)
-    // .then(() => {
-    //   this.props.history.push("/profile")
-    // })
-    // .catch(
-    //   // alert("Invalid username or password")
-    //   // this.props.history.push("/")
-    //   // TO DO
-    //   // setlocal state error = true
-    //   console.error
-    //
-    // )
-    //
-    // // debugger
-    // // .then(resp => {
-    // //   if (resp.error){
-    // //     this.setState({error: true})
-    // //   }
-    // //   else{
-    // //     // this.props.handleLogin(resp)
-    // //     this.props.history.push("/profile")
-    // //   }
-    // // })
   }
 
   render(){
-
+    console.log(this.state.countryOptions)
       return(
-        <Form  onSubmit={this.handleSubmit}>
+        <Form  onSubmit={this.handleSubmit} onKeyDown={this.handleChange}>
           <Header as='h1' icon textAlign='center'>
             {/* <Icon name='plane' circular /> */}
-            <Header.Content>Plan a Trip</Header.Content>
+            {/* <Header.Content>Plan a Trip</Header.Content> */}
+            <img id="App-logo" src={'../logo.png'}/>
           </Header>
           <Form.Group>
             <Form.Field>
-              <label>Destination</label>
-              <input placeholder='i.e. Berlin, Las Vegas' name="location" onChange={this.handleChange}/>
+              <label><h1>Destination</h1></label>
+              {/* <input placeholder='i.e. Berlin, Las Vegas' name="location" onChange={this.handleChange}/> */}
+              <Dropdown
+                button
+                className='icon'
+                onChange={this.handleChange}
+                onSearchChange={this.handleSearchChange}
+                labeled
+                icon='world'
+                id="location"
+                placeholder='Select Destination'
+                fluid
+                search
+                clearable
+                options={this.state.countryOptions} />
             </Form.Field>
             <Form.Field>
-              <label>Start Date</label>
+              <label><h1>Start Date</h1></label>
               <input type="date" placeholder='Start Date' name="start_date" onChange={this.handleChange}/>
             </Form.Field>
             <Form.Field>
-              <label>End Date</label>
+              <label><h1>End Date</h1></label>
               <input type="date" placeholder='End Date' name="end_date" onChange={this.handleChange}/>
             </Form.Field>
             <Form.Field>
-              <label>Number of People</label>
+              <label><h1>Guests</h1></label>
               <input type="number" placeholder='How Many?' name="num_ppl" onChange={this.handleChange}/>
             </Form.Field>
             <Form.Field>

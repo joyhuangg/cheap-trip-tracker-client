@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import HotelList from './HotelList'
 import SelectedHotel from './SelectedHotel'
-import { Dimmer, Loader, Image, Segment, Header, Grid, Button } from 'semantic-ui-react'
+import { Dimmer, Loader, Image, Segment, Header } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { Icon } from 'semantic-ui-react'
-import VerticalSidebar from '../VerticalSidebar'
+import { Link } from 'react-router-dom'
 
 
 class HotelsContainer extends Component {
@@ -14,8 +14,16 @@ class HotelsContainer extends Component {
     if (loggedIn && this.props.currentTrip){
       return(
         <div className="scroll-container">
-          <VerticalSidebar animation={'push'} direction={'left'} visible={true} id={this.props.currentTrip.id}/>
-          <Header textAlign='center'>PICK A HOTEL TO STAY AT</Header>
+          {/* <VerticalSidebar animation={'push'} direction={'left'} visible={true} id={this.props.currentTrip.id}/> */}
+          <div className="nav">
+            <Link to={`/trips/${this.props.currentTrip.id}`}><span><Icon name='road' />Current Trip Details | </span></Link>
+            <Link to="/hotels"><span><Icon name='hotel' />Hotels | </span></Link>
+            <Link to="/restaurants"><span><Icon name='food' />Restaurants | </span></Link>
+            <Link to="/"><span><Icon name='plane' />Flights | </span></Link>
+            <Link to="/"><span><Icon name='fly' />Activities</span></Link>
+          </div>
+          {/* TO DO: differentiate between creating and editing, 'Change Hotel' */}
+          <Header textAlign='center'>Hotels in {this.props.currentTrip.location}</Header>
           < SelectedHotel />
           < HotelList />
 
