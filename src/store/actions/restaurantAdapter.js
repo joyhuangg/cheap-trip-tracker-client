@@ -3,7 +3,7 @@ import {ZOMATO_API_KEY} from "../../.keys"
 export const getRestaurants = (trip) => {
     const long = trip.longitude;
     const lat = trip.latitude;
-    return fetch(`http://localhost:3000/api/v1/yelp_restaurants?lat=${lat}&lon=${long}`, {
+    return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/yelp_restaurants?lat=${lat}&lon=${long}`, {
       headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
@@ -14,7 +14,7 @@ export const getRestaurants = (trip) => {
 }
 
 export const postRestaurant = (restaurant) => {
-  return fetch(`http://localhost:3000/api/v1/restaurants`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/restaurants`, {
     method: "POST",
     headers: {
       'Content-type': 'application/json',
@@ -28,7 +28,7 @@ export const postRestaurant = (restaurant) => {
 
 export const postTripRestaurant = (trip_id, restaurant_id) => {
   // debugger
-  return fetch(`http://localhost:3000/api/v1/trip_restaurants`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/trip_restaurants`, {
     method: "POST",
     headers: {
       'Content-type': 'application/json',
@@ -41,7 +41,7 @@ export const postTripRestaurant = (trip_id, restaurant_id) => {
 }
 
 export const deleteTripRestaurant = (trip_id, restaurant_id) => {
-  return fetch(`http://localhost:3000/api/v1/trip_restaurants`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/trip_restaurants`, {
     method: "DELETE",
     headers: {
       'Content-type': 'application/json',

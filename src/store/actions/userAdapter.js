@@ -2,7 +2,7 @@
 
 // USERS
 export const getUsers = () => {
-  return fetch(`http://localhost:3000/api/v1/users/`)
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/users/`)
   .then(r => r.json())
   .then(res => {
     //set state
@@ -14,7 +14,7 @@ export const getUsers = () => {
 }
 
 export const getUser = (user) => {
-  return fetch("http://localhost:3000/api/v1/login",{
+  return fetch("https://cheep-treks-server.herokuapp.com/api/v1/login",{
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export const getUser = (user) => {
 }
 
 export const getUserByToken = (token) => {
-  return fetch('http://localhost:3000/api/v1/current_user', {
+  return fetch('https://cheep-treks-server.herokuapp.com/api/v1/current_user', {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -55,7 +55,7 @@ export const getUserByToken = (token) => {
 }
 
 export const postUser = (user) => {
-  return fetch(`http://localhost:3000/api/v1/users`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/users`, {
     method: "POST",
     headers: {
       'Content-type': 'application/json',
@@ -77,7 +77,7 @@ export const postUser = (user) => {
 
 
 export const deleteUser = (user) => {
-  return fetch(`http://localhost:3000/api/v1/users/${user.id}`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/users/${user.id}`, {
     method: "DELETE",
     headers: {
       'Content-type': 'application/json',
@@ -89,7 +89,7 @@ export const deleteUser = (user) => {
 }
 
 export const updateUser = (user) => {
-  return fetch(`http://localhost:3000/api/v1/users/${user.id}`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/users/${user.id}`, {
     method: "PATCH",
     headers: {
       'Content-type': 'application/json',

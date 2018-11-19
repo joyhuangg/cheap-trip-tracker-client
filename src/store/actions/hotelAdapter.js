@@ -10,7 +10,7 @@ export const getHotels = (trip) => {
 }
 
 export const postHotel = (hotel) => {
-  return fetch(`http://localhost:3000/api/v1/hotels`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/hotels`, {
     method: "POST",
     headers: {
       'Content-type': 'application/json',
@@ -24,7 +24,7 @@ export const postHotel = (hotel) => {
 
 export const postTripHotel = (trip_id, hotel_id) => {
   // debugger
-  return fetch(`http://localhost:3000/api/v1/trip_hotels`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/trip_hotels`, {
     method: "POST",
     headers: {
       'Content-type': 'application/json',
@@ -37,7 +37,7 @@ export const postTripHotel = (trip_id, hotel_id) => {
 }
 
 export const deleteTripHotel = (trip_id, hotel_id) => {
-  return fetch(`http://localhost:3000/api/v1/trip_hotels`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/trip_hotels`, {
     method: "DELETE",
     headers: {
       'Content-type': 'application/json',
