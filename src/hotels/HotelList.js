@@ -30,7 +30,20 @@ class HotelList extends Component {
 
   render(){
     let hotels
-    this.props.hotels ? hotels = this.props.hotels.map((hotel) => < Hotel key={hotel.property_code} hotel={hotel} trip={this.props.currentTrip} />) : hotels = []
+    this.props.hotels ? hotels = this.props.hotels.map((hotel) => {
+      let rating = 0
+      if (hotel.awards.length > 0){
+        rating = hotel.awards[0].rating
+      }
+      return < Hotel key={hotel.property_code} hotel={{
+          longitude: hotel.location.longitude,
+          latitude: hotel.location.latitude,
+          address: `${hotel.address.line1} ${hotel.address.city}, ${hotel.address.country} ${hotel.address.postal_code}`,
+          price: parseFloat(hotel.total_price.amount),
+          property_name: hotel.property_name,
+          rating: rating,
+          image_url: 'http://2.bp.blogspot.com/-w0CSWr6g9_A/VBp_wBsXK2I/AAAAAAAAAA4/OBQam61kTds/s1600/2415Mirage-Las-Vegas-3-thumb-550x366.jpg'
+        }} trip={this.props.currentTrip} />}) : hotels = []
     let i = 0;
     let hotelRows = []
     while (i < hotels.length){

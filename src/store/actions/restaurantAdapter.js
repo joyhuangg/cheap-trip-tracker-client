@@ -1,4 +1,3 @@
-import {ZOMATO_API_KEY} from "../../.keys"
 
 export const getRestaurants = (trip) => {
     const long = trip.longitude;

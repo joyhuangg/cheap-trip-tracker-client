@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Restaurant from './Restaurant'
 import { connect } from 'react-redux'
 import { loadRestaurants } from '../store/actions/restaurantActions'
-import { Segment, Dimmer, Loader, Grid } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
 
 // TO DO: follow example of restaurants to create a list of restaurants, use yelp api
@@ -29,8 +29,8 @@ class RestaurantList extends Component {
 
   render(){
     let restaurants = []
-    if (this.props.restaurants){
-      restaurants = this.props.restaurants.map((restaurantObj) => {
+    this.props.restaurants &&
+(      restaurants = this.props.restaurants.map((restaurantObj) => {
         let cuisines = '';
         let address = ''
         restaurantObj.categories.forEach((category) => cuisines += (category.title + ', '))
@@ -49,20 +49,20 @@ class RestaurantList extends Component {
         }
 
         return (< Restaurant key={restaurant.yelp_id} restaurant={restaurant} trip={this.props.currentTrip} />)
-    })
+    }))
 
     let i = 0;
     let restaurantRows = []
     while (i < restaurants.length){
       let row =
-      <Grid.Row>
-        <Grid.Column>
+      <Grid.Row id="card-column">
+        <Grid.Column id="card-column">
           {restaurants[i]}
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column id="card-column">
           {restaurants[i+1]}
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column id="card-column">
           {restaurants[i+2]}
         </Grid.Column>
       </Grid.Row>
@@ -70,23 +70,11 @@ class RestaurantList extends Component {
       i += 3;
     }
     return(
-      <Grid className="RestaurantList" columns='equal' selection padded>
+      <Grid className="RestaurantList" columns='equal' padded>
         {restaurantRows}
       </Grid>
     )
   }
-  else{
-    return(
-      <Segment className="tall-container">
-        <Dimmer active>
-          <Loader />
-        </Dimmer>
-
-        {/* <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' /> */}
-      </Segment>
-    )
-  }
-}
 }
 
 const mapStateToProps = (state) => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Table, Rating, Button } from 'semantic-ui-react'
+import { Table, Button } from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import {loadTrip, removeTrip} from '../store/actions/tripActions'
@@ -27,7 +27,7 @@ class TripRow extends Component {
 
 
   buttonAction = (e) => {
-    if (e.target.name === "Edit"){
+    if (e.target.id === "Edit"){
       this.props.loadTrip(this.props.trip)
       .then(() => this.props.history.push(`/trips/${this.props.trip.id}`))
     }
@@ -66,9 +66,9 @@ class TripRow extends Component {
             </Table.Cell>
             <Table.Cell singleLine>
               <Button.Group>
-                <Button icon='edit' onClick={this.buttonAction} basic color='blue' name="Edit"></Button>
-                <Button onClick={this.buttonAction} basic color='green' name="Show">Show</Button>
-                <Button icon='trash alternate' onClick={this.buttonAction} basic color='red' name="Delete" ></Button>
+                <Button className="button-style" icon='edit' onClick={this.buttonAction} basic color='blue' id="Edit"></Button>
+                <Button className="button-style" onClick={this.buttonAction} basic color='green' name="Show">Show</Button>
+                <Button className="button-style" icon='trash alternate' onClick={this.buttonAction} basic color='red' name="Delete" ></Button>
               </Button.Group>
             </Table.Cell>
           </Table.Row>

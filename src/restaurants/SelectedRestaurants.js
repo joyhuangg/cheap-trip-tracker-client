@@ -79,17 +79,20 @@ class SelectedRestaurants extends Component {
 
   render(){
     let restaurantItems = this.props.selectedRestaurants.map((restaurant) => < RestaurantItem key={restaurant.id} restaurant={restaurant} trip={this.props.currentTrip} />)
+    let button
+    this.props.selectedRestaurants.length > 0 ? button = < Button id="center" onClick={() => this.setState({open:true})}><Icon inverted circular color='teal' name='food' />See ({this.props.selectedRestaurants.length}) Selected Restaurants</Button>
+              : button = < Button disabled id="center" onClick={() => this.setState({open:true})}><Icon inverted circular color='teal' name='food' />Select a Restaurant</Button>
     return(
         <Modal open={this.state.open}
-          trigger={< Button id="center" onClick={() => this.setState({open:true})}><Icon inverted circular color='teal' name='food' />See Selected Restaurants</Button>}
-          actions={[{ key: 'done', content: 'Done'}]}>
+          trigger={button}
+          >
           <Modal.Header>
             {/* TODO: add number of restaurants in button (2 restaurants)  */}
             <div>Selected Restaurants <Button floated='right' circular color='teal' icon onClick={() => this.setState({open:false})}><Icon inverted  name='angle double up' /></Button>
             </div>
           </Modal.Header>
           <Modal.Content>
-            <List ordered className="SelectedRestaurants" size="big" style={{float: 'left', 'padding-bottom': '1em'}} divided>
+            <List ordered className="SelectedRestaurants" size="big" style={{float: 'left', 'paddingBottom': '1em'}} divided>
                   {restaurantItems}</List>
           </Modal.Content>
         </Modal>

@@ -53,7 +53,7 @@ class RestaurantItem extends Component{
           <List.Header as='a'>{this.props.restaurant.name}             <Button floated="right" size="mini" icon onClick={this.handleDelete}><Icon  name='trash alternate'/></Button></List.Header>
           <List.Description>
             {/*  TO DO: add half stars*/}
-            <Rating icon='star' defaultRating={this.props.restaurant.rating} maxRating={5} />
+            <Rating disabled icon='star' defaultRating={this.props.restaurant.rating} maxRating={5} />
             {this.state.clicked ? (<div>
               Address: {this.props.restaurant.address}
               <br/>Cuisines: {this.props.restaurant.cuisines}

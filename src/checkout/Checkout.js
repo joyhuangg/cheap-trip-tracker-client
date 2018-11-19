@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NameTripForm from '../trips/NameTripForm'
 import TripDetail from '../trips/TripDetail'
 import { connect } from 'react-redux'
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
+import { Dimmer, Loader, Segment } from 'semantic-ui-react'
 
 // import { loadActivities } from '../store/actions/activityActions'
 
@@ -31,7 +31,7 @@ class Checkout extends Component {
             <Loader />
           </Dimmer>
 
-          <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+
         </Segment>
       )
     }

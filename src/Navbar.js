@@ -93,22 +93,11 @@ class Navbar extends Component {
     loggedIn ?
         toReturn = (
           <Menu inverted style={{background: 'rgb(111, 128, 124)'}}>
-          {/*this.props.show && <Dropdown id='dropdown' text='Trip Details' icon='bars' item floating labeled button className='icon'  >
-               <Dropdown.Menu>
-                 <Dropdown.Item as={Link} to={`/trips/${id}`}><Icon name='road' />Current Trip Details</Dropdown.Item>
-                 <Dropdown.Item as={Link} to="/hotels"><Icon name='hotel' />Hotels</Dropdown.Item>
-                 <Dropdown.Item as={Link} to="/restaurants"><Icon name='food' />Restaurants</Dropdown.Item>
-                 <Dropdown.Item  as={Link} to="/"><Icon name='plane' />Flights</Dropdown.Item>
-                 <Dropdown.Item  as={Link} to="/"><Icon name='fly' />Activities</Dropdown.Item>
-               </Dropdown.Menu>
-             </Dropdown>*/}
             <Menu.Item >
-              <Link disabled={vertical} onClick={this.handleAnimationChange('push', false)}to="/trips"> <Icon name ="folder open outline
-"/> My Saved Trips</Link>
+              <Link disabled={vertical} onClick={this.handleAnimationChange('push', false)}to="/trips"> <Icon name ="folder open outline"/> My Saved Trips</Link>
             </Menu.Item>
             <Menu.Item >
-              <Link to="/profile" disabled={vertical} onClick={this.handleAnimationChange('push', true)}><Icon name ="plus square outline
-"/> New Trip</Link>
+              <Link to="/profile" disabled={vertical} onClick={this.handleAnimationChange('push', true)}><Icon name ="plus square outline"/> New Trip</Link>
             </Menu.Item>
             <Menu.Item position="right" >
               <Link to="/" onClick={this.props.handleLogout}>Logout <Icon name="sign out"/></Link>

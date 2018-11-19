@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {Route, withRouter, Switch} from 'react-router-dom';
 import Home from './home/Home'
@@ -14,13 +13,12 @@ import HotelsContainer from './hotels/HotelsContainer'
 import RestaurantsContainer from './restaurants/RestaurantsContainer'
 import Checkout from './checkout/Checkout'
 import { connect } from 'react-redux'
-import {YELP_API_KEY, AMADEUS_API_KEY, MAPBOX_API_KEY} from "./.keys"
 import { getCurrentUser, removeUser} from './store'
 import {removeHotels } from './store/actions/hotelActions'
 import {removeTrips, loadMyTrips } from './store/actions/tripActions'
 import {removeRestaurants } from './store/actions/restaurantActions'
 import { loadTrip } from './store/actions/tripActions'
-import { Container , Segment} from 'semantic-ui-react'
+import { Segment} from 'semantic-ui-react'
 
 
 

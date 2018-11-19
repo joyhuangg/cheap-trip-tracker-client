@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 class TripModal extends Component{
 
   render(){
-    console.log(this.props.trip)
     return(
       <Modal size='large' id='trip-modal' open={this.props.open} onClose={this.props.close}>
         <Modal.Header>Show Trip<Button onClick={this.props.close} negative icon="x" floated='right'/>
@@ -14,7 +13,7 @@ class TripModal extends Component{
           </Modal.Actions>
         </Modal.Header>
         <Modal.Content>
-          <TripDetail trip={this.props.trip} currentUser={this.props.currentUser}/>
+          <TripDetail showMenu={false} trip={this.props.trip} currentUser={this.props.currentUser}/>
         </Modal.Content>
 
       </Modal>

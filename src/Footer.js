@@ -1,10 +1,10 @@
 import React from 'react'
-import {Segment, Container, Grid, Header, List, Divider, Image} from 'semantic-ui-react'
+import {Segment, Container, Grid, Header, List, Divider} from 'semantic-ui-react'
 
 const Footer = () => {
   return(
 
-            <Segment inverted style={{ margin: '1em 0em 0em', padding: '1em 1em', background: 'rgb(111, 128, 124)' }} vertical>
+            <Segment id="force-color" inverted style={{ margin: '1em 0em 0em', padding: '1em 1em'}} vertical>
               <Container textAlign='center'>
                 <Grid columns={4} divided stackable inverted>
                   <Grid.Row>

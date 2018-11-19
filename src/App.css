@@ -2,6 +2,24 @@
   text-align: center;
 }
 
+.button {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+span:hover{
+  /* background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+/* .button-style:hover{
+  color: black;
+} */
 #dropdown>i{
   padding: 1em;
 }
@@ -16,7 +34,7 @@
 }
 
 .pic{
-  width: 300px;
+  width: auto;
   height: 250px;
 }
 
@@ -32,7 +50,12 @@
   margin-left: 150px; */
 }
 
+#force-color{
+  background: #005e8b !important;
+}
+
 .trip-detail-container{
+  text-align:center;
   height: 100vh;
   /* overflow-y: scroll; */
   padding: 1em;
@@ -42,6 +65,26 @@
   /* background-color:rgb(227, 255, 249); */
   background-image: url('https://aerovisioncanada.com/wp-content/uploads/2015/07/opera-background-light-blue.jpg');
 
+}
+.trip-detail-container-plain{
+  text-align:center;
+  height: 100vh;
+  /* overflow-y: scroll; */
+  padding: 1em;
+  overflow-x: hidden;
+  /* width: 85%; */
+  /* margin-left: 150px; */
+  /* background-color:rgb(227, 255, 249); */
+
+}
+
+#card-style{
+  width: auto;
+  margin: 1em;
+  border-radius: .28571429rem;
+  border-style: outset;
+  border-width: 7px;
+  border-color: rgb(152,199,208);
 }
 
 #trip-modal{

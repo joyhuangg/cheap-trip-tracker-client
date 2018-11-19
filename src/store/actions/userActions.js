@@ -1,4 +1,4 @@
-import {getUsers, getUser, postUser, deleteUser, updateUser, getUserByToken} from './userAdapter'
+import {getUser, postUser, updateUser, getUserByToken} from './userAdapter'
 /*-------------THUNK CREATORS--------------*/
 // export const updateMyUser = (user) => {
 //   return (dispatch) => {

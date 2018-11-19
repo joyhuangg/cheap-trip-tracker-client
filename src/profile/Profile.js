@@ -3,7 +3,7 @@ import TripForm from './TripForm'
 import { connect} from 'react-redux'
 // import {} from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
-import { Dimmer, Loader, Image } from 'semantic-ui-react'
+import { Dimmer, Loader} from 'semantic-ui-react'
 import { Segment } from 'semantic-ui-react'
 
 class Profile extends Component {
@@ -49,7 +49,7 @@ class Profile extends Component {
             <Loader />
           </Dimmer>
 
-          <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+
         </Segment>
       )
     }

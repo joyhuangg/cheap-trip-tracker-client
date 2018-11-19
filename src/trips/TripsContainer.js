@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TripTable from './TripTable'
-import { Dimmer, Loader, Image, Segment, Header } from 'semantic-ui-react'
+import { Dimmer, Loader, Segment, Header } from 'semantic-ui-react'
 
 
 class TripsContainer extends Component {
@@ -21,7 +21,7 @@ class TripsContainer extends Component {
             <Loader />
           </Dimmer>
 
-          <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+
         </Segment>
       )
     }

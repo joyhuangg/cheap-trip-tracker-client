@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { Button, Form, Header, Icon, Dropdown, Image } from 'semantic-ui-react'
+import { Button, Form, Header, Dropdown } from 'semantic-ui-react'
 import {MAPBOX_API_KEY} from "../.keys"
 import {postNewTrip} from '../store/actions/tripActions'
 import {patchCurrentUser} from '../store/actions/userActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-// import logo.png
-import _ from 'lodash'
-// import {Geocoder} from 'react-geocoder-autocomplete';
 
 class TripForm extends Component {
 
@@ -130,7 +127,7 @@ class TripForm extends Component {
           <Header as='h1' icon textAlign='center'>
             {/* <Icon name='plane' circular /> */}
             {/* <Header.Content>Plan a Trip</Header.Content> */}
-            <img id="App-logo" src={'../logo.png'}/>
+            <img id="App-logo" src={'../logo.png'} alt='logo'/>
           </Header>
           <Form.Group>
             <Form.Field>
@@ -152,7 +149,7 @@ class TripForm extends Component {
             </Form.Field>
             <Form.Field>
               <label><h1>Start Date</h1></label>
-              <input type="date" placeholder='Start Date' name="start_date" onChange={this.handleChange}/>
+              <input type="date" name="start_date" onChange={this.handleChange}/>
             </Form.Field>
             <Form.Field>
               <label><h1>End Date</h1></label>
