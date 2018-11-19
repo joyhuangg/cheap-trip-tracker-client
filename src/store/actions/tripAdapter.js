@@ -1,6 +1,6 @@
 // TRIPS
 export const getTrips = () => {
-  return fetch(`http://localhost:3000/api/v1/trips/`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/trips/`, {
     headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -11,7 +11,7 @@ export const getTrips = () => {
 }
 
 export const getTrip = (trip) => {
-  return fetch(`http://localhost:3000/api/v1/trips/${trip.id}`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/trips/${trip.id}`, {
     headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -22,7 +22,7 @@ export const getTrip = (trip) => {
 }
 
 export const postTrip = (trip) => {
-  return fetch(`http://localhost:3000/api/v1/trips`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/trips`, {
     method: "POST",
     headers: {
       'Content-type': 'application/json',
@@ -35,7 +35,7 @@ export const postTrip = (trip) => {
 }
 
 export const deleteTrip = (trip) => {
-  return fetch(`http://localhost:3000/api/v1/trips/${trip.id}`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/trips/${trip.id}`, {
     method: "DELETE",
     headers: {
       'Content-type': 'application/json',
@@ -46,7 +46,7 @@ export const deleteTrip = (trip) => {
 }
 
 export const updateTrip = (trip) => {
-  return fetch(`http://localhost:3000/api/v1/trips/${trip.id}`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/trips/${trip.id}`, {
     method: "PATCH",
     headers: {
       'Content-type': 'application/json',
