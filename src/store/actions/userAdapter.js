@@ -55,7 +55,7 @@ export const getUserByToken = (token) => {
 }
 
 export const postUser = (user) => {
-  return fetch(`https://cheep-treks-server.herokuapp.com/users`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/users`, {
     method: "POST",
     headers: {
       'Content-type': 'application/json',
