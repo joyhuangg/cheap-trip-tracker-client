@@ -6,7 +6,7 @@ export const getActivities = (trip) => {
 
 
 export const postActivity = (activity) => {
-  return fetch(`http://localhost:3000/api/v1/activities`, {
+  return fetch(`https://cheep-treks-server.herokuapp.com/api/v1/activities`, {
     method: "POST",
     headers: {
       'Content-type': 'application/json',
