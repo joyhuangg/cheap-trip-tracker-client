@@ -23,7 +23,7 @@ class HotelsContainer extends Component {
           </div>
           {/* TO DO: differentiate between creating and editing, 'Change Hotel' */}
           <Header as="h1" textAlign='center'>Hotels in {this.props.currentTrip.location}</Header>
-          < SelectedHotel />
+          < SelectedHotel selectedHotel={this.props.currentTrip.hotels[0]}/>
           < HotelList />
 
         </div>

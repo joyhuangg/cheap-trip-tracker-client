@@ -14,6 +14,10 @@ const tripReducer = (state = initialState, action) =>{
       return {...state, currenTrip:currentTrip, trips:newTrips}
     case "LOAD_TRIPS":
       return {...state, trips: action.payload}
+    case "ADD_TRIP":
+      let addedTrips = [...state.trips]
+      addedTrips.push(action.payload)
+      return {...state, trips: addedTrips}
     case "EDIT_TRIP":
       let alteredTrips = state.trips.map((trip) => {
         if (trip.id === action.payload.id){

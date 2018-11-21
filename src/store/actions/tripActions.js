@@ -24,6 +24,7 @@ export const postNewTrip = (trip) => {
   return (dispatch) => {
     return postTrip(trip)
     .then(trip => dispatch(setCurrentTrip(trip)))
+    .then(() => dispatch(addTrip(trip)))
   }
 }
 
@@ -61,6 +62,9 @@ export const setCurrentTrip = (trip) => {
   return {type: 'SET_CURRENT_TRIP', payload:trip }
 }
 
+export const addTrip = (trip) => {
+  return {type: 'ADD_TRIP', payload:trip}
+}
 
 export const selectTrip = (trip) => {
   return {type: 'SELECT_TRIP', payload:trip }

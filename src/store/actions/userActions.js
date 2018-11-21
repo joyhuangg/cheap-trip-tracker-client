@@ -1,4 +1,5 @@
 import {getUser, postUser, updateUser, getUserByToken} from './userAdapter'
+import {loadMyTrips} from './tripActions'
 /*-------------THUNK CREATORS--------------*/
 // export const updateMyUser = (user) => {
 //   return (dispatch) => {
@@ -30,10 +31,10 @@ export const loginUser = (user) => {
   return (dispatch) => {
     return getUser(user)
     .then(resp => {
-      console.log(resp)
       if (!resp.error){
         localStorage.setItem("token", resp.jwt)
         dispatch(setCurrentUser(resp.user))
+        dispatch(loadMyTrips(resp.user))
       }
     })
   }

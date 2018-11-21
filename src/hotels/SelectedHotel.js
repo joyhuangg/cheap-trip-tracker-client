@@ -52,7 +52,7 @@ class SelectedHotel extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {selectedHotel: state.trips.currentTrip.hotels[0],
+  return {
           currentTrip: state.trips.currentTrip}
 }
 

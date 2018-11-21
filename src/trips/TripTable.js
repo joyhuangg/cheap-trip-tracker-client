@@ -32,7 +32,7 @@ class TripTable extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    trips: state.currentUser.currentUser.trips
+    trips: state.trips.trips
   }
 }
 
