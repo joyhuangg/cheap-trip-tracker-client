@@ -14,7 +14,7 @@
 
 span:hover{
   /* background-color: #4CAF50; /* Green */
-  color: white;
+  color: black;
 }
 
 /* .button-style:hover{
@@ -116,6 +116,12 @@ span:hover{
   /* animation: App-logo-spin infinite 20s linear; */
   height: 20vmin;
   width: 20vmin;
+}
+
+#home-logo {
+  /* animation: App-logo-spin infinite 20s linear; */
+  height: 50vmin;
+  width: 50vmin;
 }
 
 .App-header {

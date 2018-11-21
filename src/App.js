@@ -35,24 +35,7 @@ class App extends Component {
           this.props.loadTrip(this.props.currentUser.current_trip)
         }
         this.props.loadMyTrips(this.props.currentUser)
-
-        // load user's trips
-
-
       })
-
-
-
-      // the current user returns an object with message: "please log in"
-      // if (this.props.currentUser.message){
-      //   localStorage.removeItem("token")
-      //   this.props.removeUser()
-      //   console.log("logging out")
-      // }
-    }
-    else{
-      alert("No one logged in")
-      this.props.history.push("/")
     }
   }
 

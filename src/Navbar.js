@@ -55,10 +55,6 @@ class Navbar extends Component {
       //   console.log("logging out")
       // }
     }
-    else{
-      alert("No one logged in")
-      this.props.history.push("/")
-    }
   }
 
   componentDidUpdate(){

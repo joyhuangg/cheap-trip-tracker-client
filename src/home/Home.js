@@ -1,11 +1,12 @@
 import React from 'react'
-import { Container } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 
 const Home = () => {
   return(
-    <Container className="tall-container">
+    <div className="center-form">
+      <img id="home-logo" src={'../logo.png'} alt='logo'/>
       {/*<h1 className="center">Home component</h1>*/}
-    </Container>
+    </div>
   )
 }
 
