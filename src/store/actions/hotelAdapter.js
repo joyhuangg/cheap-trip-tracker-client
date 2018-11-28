@@ -1,4 +1,4 @@
-import {AMADEUS_API_KEY} from "../../keys"
+import {AMADEUS_API_KEY} from "../../.keys"
 
 export const getHotels = (trip) => {
     const long = trip.longitude;

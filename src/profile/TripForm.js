@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Header, Dropdown } from 'semantic-ui-react'
-import {MAPBOX_API_KEY} from "../keys"
+import {MAPBOX_API_KEY} from "../.keys"
 import {postNewTrip} from '../store/actions/tripActions'
 import {patchCurrentUser} from '../store/actions/userActions'
 import { connect } from 'react-redux'
