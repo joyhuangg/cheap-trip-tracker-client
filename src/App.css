@@ -82,7 +82,6 @@ span:hover{
   width: auto;
   margin: 1em;
   border-radius: .28571429rem;
-  border-style: outset;
   border-width: 7px;
   border-color: rgb(152,199,208);
 }
